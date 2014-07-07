@@ -1,4 +1,4 @@
-package com.example.howork;
+package com.ioroiko.howork;
 
 import android.provider.BaseColumns;
 
@@ -19,14 +19,14 @@ public final class HoWorkContract {
         public static final String CN_VALUE = "value";
         
         //SQL for create the table
-        private static final String SQL_CREATE_DBINFO =
+        public static final String SQL_CREATE_DBINFO =
         	    "CREATE TABLE " + TABLE_NAME + " (" +
         	    _ID + " INTEGER PRIMARY KEY," +
         	    CN_KEY + " TEXT," +
         	    CN_VALUE + " TEXT" + 
         	    " )";
       //SQL for drop the table
-        private static final String SQL_DELETE_ENTRIES =
+        public static final String SQL_DELETE_ENTRIES =
         	    "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
     
@@ -37,7 +37,7 @@ public final class HoWorkContract {
         public static final String CN_MONTH = "month";
         public static final String CN_DAY = "day";
         
-        private static final String SQL_CREATE_DAYS = 
+        public static final String SQL_CREATE_DAYS = 
         		"CREATE TABLE " + TABLE_NAME + " (" +
                 	    _ID + " INTEGER PRIMARY KEY," +
                 	    CN_YEAR + " INTEGER" +
@@ -45,7 +45,7 @@ public final class HoWorkContract {
                 	    CN_DAY + " INT" +
                 	    " )";
         
-        private static final String SQL_DELETE_DAYS =
+        public static final String SQL_DELETE_DAYS =
         	    "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
     
@@ -58,7 +58,7 @@ public final class HoWorkContract {
         public static final String WAY_IN = "IN";
         public static final String WAY_OUT = "OUT";
         
-        private static final String SQL_CREATE_DAYS = 
+        public static final String SQL_CREATE_DAYS = 
         		"CREATE TABLE " + TABLE_NAME + " (" +
                 	    _ID + " INTEGER PRIMARY KEY," +
                 	    CN_WAY + " TEXT" +
@@ -67,9 +67,8 @@ public final class HoWorkContract {
                 	    "CONSTRAINT" +CN_DAY_ID+ "REFERENCES "+ DAYS.TABLE_NAME +"("+ DAYS._ID +") ON DELETE CASCADE)" +
                 	    " )";
         
-        private static final String SQL_DELETE_STAMPS =
+        public static final String SQL_DELETE_STAMPS =
         	    "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
     
-    //Rocco: riprendi da qui: http://developer.android.com/training/basics/data-storage/databases.html#DbHelper
 }

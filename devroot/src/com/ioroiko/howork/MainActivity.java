@@ -1,16 +1,24 @@
-package com.example.howork;
+package com.ioroiko.howork;
+
+
+
+import com.ioroiko.howork.R;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
+	
+	
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+        /*HoWorkSQLHelper wHelper = new HoWorkSQLHelper(this);
+        SQLiteDatabase db = wHelper.getReadableDatabase();*/
+        }
 
 
     @Override
@@ -19,5 +27,6 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
     
 }
