@@ -10,83 +10,74 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.format.Time;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 public class MyWidgetProvider extends AppWidgetProvider {
 
+	private String className = "MyWidgetProvider";
 	public static String W_IN_CLICKED = "com.roiko.HoWork.BtnWIN";
 	public static String W_OUT_CLICKED = "com.roiko.HoWork.BtnWOUT";
 	private HoWorkSQLHelper wDBHelper;
 
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
+
 		Toast.makeText(context, "OnUpdate!", Toast.LENGTH_SHORT).show();
+		Init(context, appWidgetManager, appWidgetIds);
 	}
 
 	@Override
 	public void onEnabled(Context context) {
 		Toast.makeText(context, "OnEnabled!", Toast.LENGTH_SHORT).show();
-		Init(context);
 	}
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		try{
-		// TODO Auto-generated method stub
-		super.onReceive(context, intent);
-		if (intent.getAction().equals(W_IN_CLICKED)) {
-			// IN Stamp
-			BtnINClicked(context);
+		try {
+			// TODO Auto-generated method stub
+			super.onReceive(context, intent);
+			if (intent.getAction().equals(W_IN_CLICKED)) {
+				// IN Stamp
+				BtnINClicked(context);
 
-		} else if (intent.getAction().equals(W_OUT_CLICKED)) {
-			// OUT stamp
-			BtnOUTClicked(context);
-		}
-		}
-		catch (Exception ex)
-		{
-			Toast.makeText(context, "Eccezione: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+			} else if (intent.getAction().equals(W_OUT_CLICKED)) {
+				// OUT stamp
+				BtnOUTClicked(context);
+			}
+		} catch (Exception ex) {
+			Toast.makeText(context, "Eccezione: " + ex.getMessage(),
+					Toast.LENGTH_SHORT).show();
 		}
 		// else if
 	}
 
-	private boolean Init(Context context) {
-		// ==============INIT BUTTONS AND INTENTS BEGIN=========================
-		RemoteViews rViews = new RemoteViews(context.getPackageName(),
-				R.layout.widget);
-		ComponentName watchWidget = new ComponentName(context,
-				MyWidgetProvider.class);
-		AppWidgetManager appWidgetManager = AppWidgetManager
-				.getInstance(context);
+	private boolean Init(Context c, AppWidgetManager appWidgetManager,
+			int[] appWidgetIds) {
+		// Loop for all the widget instances
+		for (int i = 0; i < appWidgetIds.length; i++) {
+			int AppWidgetId = appWidgetIds[i];
 
-		Intent intent = new Intent(W_IN_CLICKED);
-		rViews.setOnClickPendingIntent(R.id.btnWIN,
-				getPendingSelfIntent(context, W_IN_CLICKED));
+			// Create Intent to launch activity
+			Intent intent = new Intent(c, WidgetService.class);
+			intent.setAction(W_IN_CLICKED);
 
-		intent = new Intent(W_OUT_CLICKED);
+			PendingIntent pIntent = PendingIntent.getService(c, 0, intent, 0);
 
-		rViews.setOnClickPendingIntent(R.id.btnWOUT,
-				getPendingSelfIntent(context, W_OUT_CLICKED));
+			// Retrieve the widget layout and attach the intent to button IN
+			RemoteViews rViews = new RemoteViews(c.getPackageName(),
+					R.layout.widget);
+			rViews.setOnClickPendingIntent(R.id.btnWIN, pIntent);
 
-		appWidgetManager.updateAppWidget(watchWidget, rViews);
-		// ==============INIT BUTTONS AND INTENTS END=========================
-		// Init DBHelper
-		//wDBHelper = new HoWorkSQLHelper(context);
-		// SQLiteDatabase db = wDBHelper.getWritableDatabase(); //Do it when
-		// necessary and in a thread!!!
-
+			// Appdate the current widget
+			appWidgetManager.updateAppWidget(AppWidgetId, rViews);
+		}
 		return true;
 	}
 
-	protected PendingIntent getPendingSelfIntent(Context context, String action) {
-		Intent intent = new Intent(context, getClass());
-		intent.setAction(action);
-		return PendingIntent.getBroadcast(context, 0, intent, 0);
-	}
-
 	protected void BtnINClicked(Context context) {
-		// Toast.makeText(context, "Premuto IN!", Toast.LENGTH_SHORT).show();
+		Log.d(className, "Premuto IN!");
 		Stamp stamp = getStampData(context);
 		String msg = String.format("%02d/%02d/%d IN at %s", stamp.day,
 				stamp.month, stamp.year, stamp.getTime());
@@ -95,24 +86,21 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	}
 
 	private void DoSomething(Context c) {
-		
+		Intent intent = new Intent(c, WidgetService.class);
+		intent.setAction(W_IN_CLICKED);
+		c.startService(intent);
 		int a = 0;
 	}
 
 	protected void BtnOUTClicked(Context context) {
+		Log.d(className, "Premuto IN!");
 		Stamp stamp = getStampData(context);
 		String msg = String.format("%02d/%02d/%d OUT at %s", stamp.day,
 				stamp.month, stamp.year, stamp.getTime());
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}
 
-	protected void SwitchINAndOUTVisibility(Context context) {
-		// TODO
-	}
-
 	protected void InsertStamp(Stamp stamp, String way) {
-		SQLiteDatabase db = wDBHelper.getWritableDatabase();
-
 		// TODO
 	}
 
@@ -128,5 +116,4 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		Stamp stamp = new Stamp(year, month, day, hour, minute);
 		return stamp;
 	}
-
 }

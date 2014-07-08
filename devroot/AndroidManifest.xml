@@ -32,6 +32,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_def" />
         </receiver>
+        
+        <!-- Service of the widget -->
+        <service	
+            android:name=".WidgetService"
+            android:exported="false"/>
+        
 
     </application>
 
