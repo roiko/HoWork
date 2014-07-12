@@ -19,7 +19,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	private String className = "MyWidgetProvider";
 	public static String W_IN_CLICKED = "com.roiko.HoWork.BtnWIN";
 	public static String W_OUT_CLICKED = "com.roiko.HoWork.BtnWOUT";
-	private HoWorkSQLHelper wDBHelper;
+	private HoWorkSQLHelper _wDBHelper;
 
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
@@ -78,7 +78,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 
 	protected void BtnINClicked(Context context) {
 		Log.d(className, "Premuto IN!");
-		Stamp stamp = getStampData(context);
+		Stamp stamp = Utils.getStampData(context);
 		String msg = String.format("%02d/%02d/%d IN at %s", stamp.day,
 				stamp.month, stamp.year, stamp.getTime());
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
@@ -94,7 +94,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 
 	protected void BtnOUTClicked(Context context) {
 		Log.d(className, "Premuto IN!");
-		Stamp stamp = getStampData(context);
+		Stamp stamp = Utils.getStampData(context);
 		String msg = String.format("%02d/%02d/%d OUT at %s", stamp.day,
 				stamp.month, stamp.year, stamp.getTime());
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
@@ -104,16 +104,5 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		// TODO
 	}
 
-	protected Stamp getStampData(Context context) {
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH) + 1;
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		Time now = new Time();
-		now.setToNow();
-		int hour = now.hour;
-		int minute = now.minute;
-		Stamp stamp = new Stamp(year, month, day, hour, minute);
-		return stamp;
-	}
+	
 }
