@@ -12,18 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
+        <TextView
+            android:id="@+id/tvWToday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="[data oggi]" />
+
         <Button
             android:id="@+id/btnWIN"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:text="IN" />
 
         <Button
             android:id="@+id/btnWOUT"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:text="OUT" />
     </LinearLayout>
 
@@ -31,35 +38,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/tvWToday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="[data oggi]" />
-
-        <Button
-            android:id="@+id/btnWEdit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="[Edit]" />
-
-        <Button
-            android:id="@+id/btnWSummary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="[Sum]" />
-    </LinearLayout>
-
-    <!-- Bottom (Riassunto della giornata qui IN/OUT IN/OUT IN/OUT) -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical" >
 
         <!-- riga degli IN-OUT... -->
@@ -74,56 +55,64 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="IN" />
+                android:text="IN"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="OUT" />
+                android:text="OUT"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="IN" />
+                android:text="IN"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="OUT" />
+                android:text="OUT"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="IN" />
+                android:text="IN"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="OUT" />
+                android:text="OUT"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="IN" />
+                android:text="IN"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="OUT" />
+                android:text="OUT"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- riga dei timestamp -->
@@ -134,12 +123,12 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:layout_width="0dp"
                 android:id="@+id/tvTSIN1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvTSOUT1"
@@ -147,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvTSIN2"
@@ -155,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvTSOUT2"
@@ -163,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvTSIN3"
@@ -171,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvTSOUT3"
@@ -179,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvTSIN4"
@@ -187,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvTSOUT4"
@@ -195,8 +184,29 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="00:00" />
+                android:text="00:00" android:textStyle="bold"/>
         </LinearLayout>
+    </LinearLayout>
+
+    <!-- Bottom (Riassunto della giornata qui IN/OUT IN/OUT IN/OUT) -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btnWEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="[Edit]" />
+
+        <Button
+            android:id="@+id/btnWSummary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="[Sum]" />
     </LinearLayout>
 
 </LinearLayout>

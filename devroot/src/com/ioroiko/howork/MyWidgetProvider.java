@@ -96,6 +96,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			
 			String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
 			rViews.setTextViewText(R.id.tvWToday, currentDateTimeString);
+			
 			// Appdate the current widget
 			appWidgetManager.updateAppWidget(AppWidgetId, rViews);
 		}
