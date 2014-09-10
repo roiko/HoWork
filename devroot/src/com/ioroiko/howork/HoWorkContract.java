@@ -81,10 +81,10 @@ public final class HoWorkContract {
         public static final String SQL_ADD_STAMP_IN = 
         		"INSERT INTO "+TABLE_NAME+" ("+CN_DAY_ID+","+CN_WAY+","+CN_TIME+") VALUES (?,?,?);";
         
-        public static final String SQL_GET_STAMPS_OF_A_DAY = 
-        		"SELECT * FROM " + STAMPS.TABLE_NAME + 
+        public static final String SQL_GET_STAMPS_OF_A_DAY =
+        		"SELECT " + STAMPS.CN_TIME +","+STAMPS.CN_WAY+" FROM " + STAMPS.TABLE_NAME + 
         		" JOIN "+ DAYS.TABLE_NAME +
-        		" ON "+STAMPS.CN_DAY_ID +"="+ DAYS._ID +
+        		" ON "+STAMPS.TABLE_NAME+"."+STAMPS.CN_DAY_ID +"="+DAYS.TABLE_NAME+"."+ DAYS._ID +
         		" WHERE " + DAYS.CN_YEAR + " =? AND " + DAYS.CN_MONTH + " =? AND " + DAYS.CN_DAY + " =?"+
         		"ORDER BY " + CN_TIME ;
     }

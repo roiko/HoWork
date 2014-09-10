@@ -7,6 +7,7 @@ public class Stamp {
 	public int day;
 	public int hour;
 	public int minute;
+	public GlobalVars.Way way;
 	
 	public Stamp()
 	{

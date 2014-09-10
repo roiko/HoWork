@@ -7,7 +7,7 @@ import android.text.format.Time;
 
 public class Utils {
 	
-	public static Stamp getStampData(Context context) {
+	public static Stamp getTodayAsStamp(Context context) {
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH) + 1;
@@ -19,5 +19,5 @@ public class Utils {
 		Stamp stamp = new Stamp(year, month, day, hour, minute);
 		return stamp;
 	}
-
+	
 }

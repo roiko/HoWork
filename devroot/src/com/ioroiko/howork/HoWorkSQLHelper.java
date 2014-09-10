@@ -130,7 +130,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 		return id_day;
 
 	}
-
+	
 	public int InsertStamp(Stamp stamp, Way way)
 	{
 		int id_Stamp = -1;
@@ -149,21 +149,19 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			
 		
 		SQLiteDatabase db = this.getWritableDatabase();
-		//Qui devo controllare se l'ultima timbratura del giorno (se esiste) è OUT, 
-		//altrimenti non scrivo la IN, perché ce ne sarebbero due di seguito. Ritorno un errore ad hoc
-		//TODO
-		
 		
 		//Insert timestamp
 		ContentValues values = new ContentValues();
 		values.put(STAMPS.CN_DAY_ID, id_Day);
 		values.put(STAMPS.CN_TIME, String.format("%02d:%02d", stamp.hour, stamp.minute));
+		Log.d("HoWorkSqlHelper", "[InsertStamp] saving " + String.format("%02d:%02d", stamp.hour, stamp.minute)+"...");
 		if (way.equals(GlobalVars.Way.IN))
 			values.put(STAMPS.CN_WAY, STAMPS.WAY_IN);
 		else
 			values.put(STAMPS.CN_WAY, STAMPS.WAY_OUT);
 		
 		long id_Added = db.insert(STAMPS.TABLE_NAME, null, values);
+		Log.d("HoWorkSqlHelper", "[InsertStamp] ...saved!");
 		id_Stamp  = (int) id_Added;
 		
 		return id_Stamp;
@@ -181,9 +179,25 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			Cursor cur = db.rawQuery(STAMPS.SQL_GET_STAMPS_OF_A_DAY, selArgs);
 			if (cur.getCount() > 0) {
 				cur.moveToFirst();
+				boolean loop = true;
 				do {
-					// TOOD riempire la lista di timbrature
-				} while (!cur.isLast());
+					// TODO riempire la lista di timbrature
+					String timeString = cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_TIME)); //Time value
+					String[] timeSplit = timeString.split(":");
+					Stamp tempStamp = new Stamp(year, month, day, Integer.parseInt(timeSplit[0]), Integer.parseInt(timeSplit[1]));
+					String way = cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_WAY));
+					if (cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_WAY)).equals(HoWorkContract.STAMPS.WAY_IN))
+						tempStamp.way=Way.IN;
+					else if (cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_WAY)).equals(HoWorkContract.STAMPS.WAY_OUT))
+						tempStamp.way=Way.OUT;
+					stamps.add(tempStamp);
+					
+					if (cur.isLast())
+						loop=false;
+					else
+						cur.moveToNext();
+					
+				} while (loop);
 			}
 
 		}

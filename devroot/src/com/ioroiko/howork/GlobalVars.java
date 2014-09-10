@@ -10,6 +10,14 @@ public class GlobalVars {
 		
 	}
 	
+	public enum ReadTodayTimeStamps {
+		Ok,
+		DBClosed,
+		GenericError,
+		ExceptionThrown
+		
+	}
+	
 	public enum Way{
 		IN,
 		OUT
