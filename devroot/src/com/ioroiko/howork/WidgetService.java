@@ -44,26 +44,26 @@ public class WidgetService extends IntentService {
 		// TODO Auto-generated method stub
 		Log.i("WidgetService", "Ricevuto intent: " + workIntent.getAction());
 
-		if (workIntent.getAction().equals(
-				MyWidgetProvider.BTN_STAMP_CLICK)) {
+		if (workIntent.getAction().equals(MyWidgetProvider.BTN_STAMP_CLICK)) {
 			String way = workIntent.getStringExtra(MyWidgetProvider.STAMP_WAY);
-			// devo controllare se il precedente è uguale al corrente
+			// devo controllare se il precedente è uguale al corrente o il
+			// massimo numero di stamp è scritto
 			// nel caso, valutare se sovrascriverla o no
 			ArrayList<Stamp> todayStamps = GetStampsOfToday();
 			Stamp now = Utils.getTodayAsStamp(this);
-			now.way= (workIntent.getStringExtra(MyWidgetProvider.STAMP_WAY).equals(MyWidgetProvider.WAY_IN))? GlobalVars.Way.IN : GlobalVars.Way.OUT; 
-			if (CanWriteNewStamp(todayStamps, now))
-			{
+			now.way = (workIntent.getStringExtra(MyWidgetProvider.STAMP_WAY)
+					.equals(MyWidgetProvider.WAY_IN)) ? GlobalVars.Way.IN
+					: GlobalVars.Way.OUT;
+			if (CanWriteNewStamp(todayStamps, now)) {
 				Log.i("WidgetService",
 						String.format("Eseguo WriteStamp(%s)", now.way));
 				WriteStamp(now.way);
-			}
-			else
-			{
-				Log.i("WidgetService",
-						String.format("Due timbrature consecutive nello stesso verso (%s), non salvo", now.way));
-				ToastmakeText(String.format("Due timbrature consecutive nello stesso verso (%s), non salvo", now.way), 
-						Toast.LENGTH_SHORT);
+			} else {
+				String message = String
+						.format("Timbratura non ammessa (%s) o massimo raggiunto, non salvo",
+								now.way);
+				Log.i("WidgetService", message);
+				ToastmakeText(message, Toast.LENGTH_SHORT);
 			}
 		}
 
@@ -85,29 +85,41 @@ public class WidgetService extends IntentService {
 		// Controlla se
 		WriteStamp(GlobalVars.Way.IN);
 	}
+
 	/**
 	 * 
-	 * @param storedStamps: list of already stored stamps for today
-	 * @param wantedStamp: the stamp I want to store
-	 * @return If the last stamp is the same WAY of the wantedStamp, return false. Else, return true
+	 * @param storedStamps
+	 *            : list of already stored stamps for today
+	 * @param wantedStamp
+	 *            : the stamp I want to store
+	 * @return If the last stamp is the same WAY of the wantedStamp, return
+	 *         false. Else, return true
 	 */
-	private boolean CanWriteNewStamp(ArrayList<Stamp> storedStamps, Stamp wantedStamp)
-	{
-		if ((storedStamps==null) || (storedStamps.size()==0))//non esistono stamps per oggi
-			return true;
-		
-		GlobalVars.Way lastWay = storedStamps.get(storedStamps.size()-1).way;
-		if (lastWay==null)
+	private boolean CanWriteNewStamp(ArrayList<Stamp> storedStamps,
+			Stamp wantedStamp) {
+		if (storedStamps.size() == 0)// non esistono stamps per oggi
 		{
-				Log.e("CanWriteNewStamp", "Errore, way non può essere null!!! Ritorno false");
-				return false;
+			if (wantedStamp.way.equals(GlobalVars.Way.OUT))
+				return false;//first stamp can't be OUT
+			else
+				return true;
 		}
-		if (lastWay.equals(wantedStamp.way))//Non scrivo due volte lo stesso timestamp (anche se potrei sovrascriverlo...)
+
+		GlobalVars.Way lastWay = storedStamps.get(storedStamps.size() - 1).way;
+		if (storedStamps.size() == 8)// maximum stamps limit reached!
 			return false;
-		
+		if (lastWay == null) {
+			Log.e("CanWriteNewStamp",
+					"Errore, way non può essere null!!! Ritorno false");
+			return false;
+		}
+		if (lastWay.equals(wantedStamp.way))// Non scrivo due volte lo stesso
+											// timestamp (anche se potrei
+											// sovrascriverlo...)
+			return false;
+
 		return true;
-		
-		
+
 	}
 
 	public GlobalVars.WriteStampRes WriteStamp(GlobalVars.Way way) {
@@ -127,7 +139,6 @@ public class WidgetService extends IntentService {
 			return WriteStampRes.DBClosed;
 
 		/* Add stamp */
-
 		Stamp nowStamp = Utils.getTodayAsStamp(this);
 		Log.d("WidgetService",
 				"[WriteStamp] calling InsertStamp(" + way.toString() + ")...");
@@ -135,7 +146,7 @@ public class WidgetService extends IntentService {
 		Log.d("WidgetService", "[WriteStamp] InsertStamp(" + way.toString()
 				+ ") end!");
 
-		// QUi voglio inviare come chiave la textView da aggiornare e come
+		// Qui voglio inviare come chiave la textView da aggiornare e come
 		// valore la stringa di testo
 
 		// Da rimuovere questa riga quando il commento sopra è implementato
