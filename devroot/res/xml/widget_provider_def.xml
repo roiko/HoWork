@@ -6,9 +6,8 @@
     android:minHeight="110dp"
     android:minWidth="250dp"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="0" /><!-- Significa "No update" -->
-    <!--android:updatePeriodMillis="3600000" />
-<!-
+    android:updatePeriodMillis="43200000" /> <!-- 12 ore -->
+<!--
 Aggiungere (con un'imagine di come sarà il widget per vederlo nella lista dei widget): 
 android:previewImage="@drawable/widget_preview"
 -->
