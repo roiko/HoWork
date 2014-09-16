@@ -44,15 +44,15 @@ public class WidgetService extends IntentService {
 		// TODO Auto-generated method stub
 		Log.i("WidgetService", "Ricevuto intent: " + workIntent.getAction());
 
-		if (workIntent.getAction().equals(MyWidgetProvider.BTN_STAMP_CLICK)) {
-			String way = workIntent.getStringExtra(MyWidgetProvider.STAMP_WAY);
+		if (workIntent.getAction().equals(GlobalVars.BTN_STAMP_CLICK)) {
+			String way = workIntent.getStringExtra(GlobalVars.STAMP_WAY);
 			// devo controllare se il precedente è uguale al corrente o il
 			// massimo numero di stamp è scritto
 			// nel caso, valutare se sovrascriverla o no
 			ArrayList<Stamp> todayStamps = GetStampsOfToday();
 			Stamp now = Utils.getTodayAsStamp(this);
-			now.way = (workIntent.getStringExtra(MyWidgetProvider.STAMP_WAY)
-					.equals(MyWidgetProvider.WAY_IN)) ? GlobalVars.Way.IN
+			now.way = (workIntent.getStringExtra(GlobalVars.STAMP_WAY)
+					.equals(GlobalVars.WAY_IN)) ? GlobalVars.Way.IN
 					: GlobalVars.Way.OUT;
 			if (CanWriteNewStamp(todayStamps, now)) {
 				Log.i("WidgetService",

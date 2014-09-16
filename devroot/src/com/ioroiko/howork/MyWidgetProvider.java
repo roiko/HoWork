@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.RemoteViews;
@@ -25,11 +26,8 @@ public class MyWidgetProvider extends AppWidgetProvider {
 
 	private String className = "MyWidgetProvider";
 	
-	public static String WAY_IN = "com.roiko.HoWork.BtnWIN";
-	public static String WAY_OUT = "com.roiko.HoWork.BtnWOUT";
-	public static String STAMP_WAY = "com.roiko.HoWork.STAMP_WAY";
+	//Intent
 	
-	public static String BTN_STAMP_CLICK = "com.roiko.HoWork.BTN_STAMP_CLICK";
 	
 	private HoWorkSQLHelper _wDBHelper;
 	
@@ -52,7 +50,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			// TODO Auto-generated method stub
 			super.onReceive(context, intent);
 			Log.d("MyWidgetProvider", "Intent Received: " + intent.getAction());
-			if ((intent.getAction().equals(BTN_STAMP_CLICK))) {//useless?
+			if ((intent.getAction().equals(GlobalVars.BTN_STAMP_CLICK))) {//useless?
 				// IN or OUT? check STAMP_WAY in Extra
 			}
 			else if (intent.getAction().equals(WidgetService.SERVICE_INTENT_TIMESTAMP_UPDATED)){
@@ -75,11 +73,14 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			int AppWidgetId = appWidgetIds[i];
 			// Retrieve the widget layout
 			RemoteViews rViews = new RemoteViews(c.getPackageName(), R.layout.widget);
+			
+			String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
+			rViews.setTextViewText(R.id.tvWToday, currentDateTimeString);
 
 			//Btn IN
 			Intent intentIN = new Intent(c, WidgetService.class);
-			intentIN.setAction(BTN_STAMP_CLICK);
-			intentIN.putExtra(STAMP_WAY, WAY_IN);
+			intentIN.setAction(GlobalVars.BTN_STAMP_CLICK);
+			intentIN.putExtra(GlobalVars.STAMP_WAY, GlobalVars.WAY_IN);
 			//use hashcode to avoid Android uses the last declared intent information. 
 			//It must be exactly the one declared in previous istruction
 			PendingIntent pIntentIN = PendingIntent.getService(c, intentIN.hashCode(), intentIN, 0);
@@ -87,15 +88,21 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	
 			//Btn OUT
 			Intent intentOUT = new Intent(c, WidgetService.class);
-			intentOUT.setAction(BTN_STAMP_CLICK);
-			intentOUT.putExtra(STAMP_WAY, WAY_OUT);
+			intentOUT.setAction(GlobalVars.BTN_STAMP_CLICK);
+			intentOUT.putExtra(GlobalVars.STAMP_WAY, GlobalVars.WAY_OUT);
 			//use hashcode to avoid Android uses the last declared intent information (for example uses extra of intentIN). 
 			//It must be exactly the one declared in previous istruction
 			PendingIntent pIntentOUT = PendingIntent.getService(c,intentOUT.hashCode(), intentOUT, 0);
 			rViews.setOnClickPendingIntent(R.id.btnWOUT, pIntentOUT);
 			
-			String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
-			rViews.setTextViewText(R.id.tvWToday, currentDateTimeString);
+			//Btn EDIT
+			Intent intentEdit = new Intent(c, ActivityEdit.class);
+			intentEdit.setAction(GlobalVars.BTN_EDIT_CLICK);
+			intentEdit.putExtra(GlobalVars.DAY_TO_EDIT, "");//Mettere l'id del giorno
+			PendingIntent pIntentEDIT = PendingIntent.getActivity(c, intentEdit.hashCode(), intentEdit, 0);
+			rViews.setOnClickPendingIntent(R.id.btnWEdit, pIntentEDIT);
+			
+			
 			
 			// Appdate the current widget
 			appWidgetManager.updateAppWidget(AppWidgetId, rViews);
@@ -131,27 +138,34 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			switch (i) //Every index update a textView IN/OUT
 			{
 			case 0:
+				rViews.setViewVisibility(R.id.tvTSIN1, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSIN1, stampsOfToday.get(i).getTime());
 				break;
 			case 1:
+				rViews.setViewVisibility(R.id.tvTSOUT1, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSOUT1, stampsOfToday.get(i).getTime());
 				break;
 			case 2:
+				rViews.setViewVisibility(R.id.tvTSIN2, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSIN2, stampsOfToday.get(i).getTime());
 				break;
 			case 3:
+				rViews.setViewVisibility(R.id.tvTSOUT2, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSOUT2, stampsOfToday.get(i).getTime());
 				break;
 			case 4:
+				rViews.setViewVisibility(R.id.tvTSIN2, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSIN3, stampsOfToday.get(i).getTime());
 				break;
 			case 5:
+				rViews.setViewVisibility(R.id.tvTSOUT3, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSOUT3, stampsOfToday.get(i).getTime());
 				break;
 			case 6:
+				rViews.setViewVisibility(R.id.tvTSIN4, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSIN4, stampsOfToday.get(i).getTime());
 				break;
-			case 7:
+			case 7:rViews.setViewVisibility(R.id.tvTSOUT4, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSOUT4, stampsOfToday.get(i).getTime());
 				break;
 			}

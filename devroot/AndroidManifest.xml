@@ -32,13 +32,16 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_def" />
         </receiver>
-        
-        <!-- Service of the widget -->
-        <service	
-            android:name=".WidgetService"
-            android:exported="false"/>
-        
 
+        <!-- Service of the widget -->
+        <service
+            android:name="com.ioroiko.howork.WidgetService"
+            android:exported="false" />
+
+        <activity
+            android:name="com.ioroiko.howork.ActivityEdit"
+            android:label="@string/title_activity_activity_edit" >
+        </activity>
     </application>
 
 </manifest>
