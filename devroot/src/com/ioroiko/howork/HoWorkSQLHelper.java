@@ -1,11 +1,7 @@
 package com.ioroiko.howork;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import com.ioroiko.howork.GlobalVars.Way;
-import com.ioroiko.howork.GlobalVars.WriteStampRes;
 import com.ioroiko.howork.HoWorkContract.DAYS;
 import com.ioroiko.howork.HoWorkContract.DBINFO;
 import com.ioroiko.howork.HoWorkContract.STAMPS;
@@ -15,7 +11,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.media.ExifInterface;
 import android.util.Log;
 
 public class HoWorkSQLHelper extends SQLiteOpenHelper {
@@ -169,7 +164,6 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 
 	public ArrayList<Stamp> GetStampsOfDay(int year, int month, int day) {
 		ArrayList<Stamp> stamps = new ArrayList<Stamp>();
-		int id_day = -1;
 		if (DayExist(year, month, day) != -1)// cerco timbrature oslo se esiste
 												// il giorno
 		{
@@ -185,7 +179,6 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 					String timeString = cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_TIME)); //Time value
 					String[] timeSplit = timeString.split(":");
 					Stamp tempStamp = new Stamp(year, month, day, Integer.parseInt(timeSplit[0]), Integer.parseInt(timeSplit[1]));
-					String way = cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_WAY));
 					if (cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_WAY)).equals(HoWorkContract.STAMPS.WAY_IN))
 						tempStamp.way=Way.IN;
 					else if (cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_WAY)).equals(HoWorkContract.STAMPS.WAY_OUT))

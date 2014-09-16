@@ -1,6 +1,5 @@
 package com.ioroiko.howork;
 
-import android.graphics.YuvImage;
 import android.provider.BaseColumns;
 
 public final class HoWorkContract {

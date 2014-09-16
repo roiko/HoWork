@@ -2,7 +2,6 @@ package com.ioroiko.howork;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.ioroiko.howork.R;
@@ -12,23 +11,13 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView.FindListener;
-import android.widget.Button;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyWidgetProvider extends AppWidgetProvider {
 
-	private String className = "MyWidgetProvider";
-	
-	//Intent
-	
-	
 	private HoWorkSQLHelper _wDBHelper;
 	
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -42,6 +31,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onEnabled(Context context) {
 		Toast.makeText(context, "OnEnabled!", Toast.LENGTH_SHORT).show();
+		UpdateTodayStamps(context);
 	}
 
 	@Override
@@ -54,9 +44,13 @@ public class MyWidgetProvider extends AppWidgetProvider {
 				// IN or OUT? check STAMP_WAY in Extra
 			}
 			else if (intent.getAction().equals(WidgetService.SERVICE_INTENT_TIMESTAMP_UPDATED)){
-				//Service has stored the timestamp. Then it raise the intent to update all widgets IN/OUT items
+				//Service has stored the timestamp. Then it raised the intent to update all widgets IN/OUT items
+				Toast.makeText(context, "Updating widget UI...", Toast.LENGTH_SHORT).show();
 				UpdateTodayStamps(context);
+				Toast.makeText(context, "UI updated!", Toast.LENGTH_SHORT).show();
+				
 			}
+				
 		} catch (Exception ex) {
 			Log.e("MyWidgetProvider", "[onReceive] Exception: " + ex.getMessage());
 			Toast.makeText(context, "Eccezione: " + ex.getMessage(),
@@ -98,12 +92,12 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			//Btn EDIT
 			Intent intentEdit = new Intent(c, ActivityEdit.class);
 			intentEdit.setAction(GlobalVars.BTN_EDIT_CLICK);
-			intentEdit.putExtra(GlobalVars.DAY_TO_EDIT, "");//Mettere l'id del giorno
-			PendingIntent pIntentEDIT = PendingIntent.getActivity(c, intentEdit.hashCode(), intentEdit, 0);
+			intentEdit.putExtra(GlobalVars.EXTRA_YEAR, today.year);
+			intentEdit.putExtra(GlobalVars.EXTRA_MONTH, today.month);
+			intentEdit.putExtra(GlobalVars.EXTRA_DAY, today.day);
+			PendingIntent pIntentEDIT =  PendingIntent.getActivity(c, intentEdit.hashCode(), intentEdit, 0);
 			rViews.setOnClickPendingIntent(R.id.btnWEdit, pIntentEDIT);
-			
-			
-			
+				
 			// Appdate the current widget
 			appWidgetManager.updateAppWidget(AppWidgetId, rViews);
 		}
@@ -117,7 +111,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		//Retrieve list of stamps for today
 		Stamp today = Utils.getTodayAsStamp(c);
 		ArrayList<Stamp> stampsOfToday = new ArrayList<Stamp>();
-		Intent intent = new Intent(c, WidgetService.class);
 		
 		_wDBHelper = new HoWorkSQLHelper(c);
 		stampsOfToday = _wDBHelper.GetStampsOfDay(today.year, today.month, today.day);//Dovrei usare il service per fare una cosa pulita...
@@ -128,8 +121,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		
 		for (int j=0;j<appWidgetIDs.length;j++)
 		{
-			
-		int widgetID=appWidgetIDs[j];
 		//Set all textviews value IN1/OUT1, IN2/OUT2,...
 		//Always use remoteView for widget!
 		RemoteViews rViews = new RemoteViews(c.getPackageName(),R.layout.widget);
@@ -154,7 +145,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 				rViews.setTextViewText(R.id.tvTSOUT2, stampsOfToday.get(i).getTime());
 				break;
 			case 4:
-				rViews.setViewVisibility(R.id.tvTSIN2, View.VISIBLE);
+				rViews.setViewVisibility(R.id.tvTSIN3, View.VISIBLE);
 				rViews.setTextViewText(R.id.tvTSIN3, stampsOfToday.get(i).getTime());
 				break;
 			case 5:
@@ -172,35 +163,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		}
 		AppWidgetManager.getInstance(c).updateAppWidget(providerName, rViews);
 		}
-	}
-
-	
-	/*protected void BtnINClicked(Context context) {
-		Log.d(className, "Premuto IN!");
-		Stamp stamp = Utils.getStampData(context);
-		String msg = String.format("%02d/%02d/%d IN at %s", stamp.day,
-				stamp.month, stamp.year, stamp.getTime());
-		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-		DoSomething(context);
-	}
-
-	private void DoSomething(Context c) {
-		Intent intent = new Intent(c, WidgetService.class);
-		intent.setAction(W_IN_CLICKED);
-		c.startService(intent);
-		int a = 0;
-	}
-
-	protected void BtnOUTClicked(Context context) {
-		Log.d(className, "Premuto IN!");
-		Stamp stamp = Utils.getStampData(context);
-		String msg = String.format("%02d/%02d/%d OUT at %s", stamp.day,
-				stamp.month, stamp.year, stamp.getTime());
-		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-	}*/
-
-	protected void InsertStamp(Stamp stamp, String way) {
-		// TODO
 	}
 
 }

@@ -8,7 +8,9 @@ public class GlobalVars {
 	
 	// Extra keys
 	public static String STAMP_WAY = "STAMP_WAY";
-	public static String DAY_TO_EDIT = "DAY_TO_EDIT";
+	public static String EXTRA_YEAR = "EXTRA_YEAR";
+	public static String EXTRA_MONTH = "EXTRA_MONTH";
+	public static String EXTRA_DAY = "EXTRA_DAY";
 
 	// Extra values
 	public static String WAY_IN = "WAY_IN";

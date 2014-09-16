@@ -3,8 +3,6 @@ package com.ioroiko.howork;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.ioroiko.howork.GlobalVars.ReadTodayTimeStamps;
-import com.ioroiko.howork.GlobalVars.Way;
 import com.ioroiko.howork.GlobalVars.WriteStampRes;
 
 import android.annotation.TargetApi;
@@ -13,7 +11,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,8 +21,6 @@ public class WidgetService extends IntentService {
 	public static final String STAMP_STORED = "STAMP_STORED";
 
 	private Handler mMainThreadHandler = null; // per fare Toast senza generare
-												// eccezione dead thread
-	private String className = "WidgetService";
 	private HoWorkSQLHelper _wHelper = new HoWorkSQLHelper(this);
 
 	public WidgetService() {
@@ -45,7 +40,6 @@ public class WidgetService extends IntentService {
 		Log.i("WidgetService", "Ricevuto intent: " + workIntent.getAction());
 
 		if (workIntent.getAction().equals(GlobalVars.BTN_STAMP_CLICK)) {
-			String way = workIntent.getStringExtra(GlobalVars.STAMP_WAY);
 			// devo controllare se il precedente è uguale al corrente o il
 			// massimo numero di stamp è scritto
 			// nel caso, valutare se sovrascriverla o no
