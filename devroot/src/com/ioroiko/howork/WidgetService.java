@@ -11,14 +11,15 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings.Global;
 import android.util.Log;
 import android.widget.Toast;
 
 public class WidgetService extends IntentService {
 
 	// public static final String SERVICE_INTENT = "com.ioroiko.ServiceIntent";
-	public static final String SERVICE_INTENT_TIMESTAMP_UPDATED = "SERVICE_UPDATE_TIMESTAMP";
-	public static final String STAMP_STORED = "STAMP_STORED";
+	
+	
 
 	private Handler mMainThreadHandler = null; // per fare Toast senza generare
 	private HoWorkSQLHelper _wHelper = new HoWorkSQLHelper(this);
@@ -144,7 +145,7 @@ public class WidgetService extends IntentService {
 		// valore la stringa di testo
 
 		// Da rimuovere questa riga quando il commento sopra è implementato
-		SendBroadcastIntent(SERVICE_INTENT_TIMESTAMP_UPDATED, STAMP_STORED,
+		SendBroadcastIntent(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED, GlobalVars.STAMP_STORED,
 				"Update your timestamps textViews!");
 
 		return result;

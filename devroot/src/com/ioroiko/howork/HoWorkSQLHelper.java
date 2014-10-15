@@ -197,5 +197,46 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 
 		return stamps;
 	}
+	
+	public boolean UpdateStampTime(Stamp oldStamp, Stamp newStamp)
+	{
+		String method = "UpdateStamp";
+		boolean res=true;
+		int existingIDDay = DayExist(oldStamp.year, oldStamp.month, oldStamp.day);
+		if (existingIDDay!=-1)
+		{
+			Log.d(method,String.format("Day exists (ID = %d)",existingIDDay));
+			try
+			{
+			SQLiteDatabase db = this.getWritableDatabase();
+			ContentValues values = new ContentValues();
+			//values.put(STAMPS.CN_WAY, newStamp.way.toString());
+			values.put(STAMPS.CN_TIME, newStamp.getTime());
+			String[] whereArgs = new String[3];
+			whereArgs[0]=oldStamp.way.toString();
+			whereArgs[1]=oldStamp.getTime();
+			whereArgs[2]=String.valueOf(existingIDDay);
+			String whereClause = String.format("%s=? AND %s=? AND %s=?", STAMPS.CN_WAY, STAMPS.CN_TIME, STAMPS.CN_DAY_ID);
+			Log.d(method, String.format("Update query parameters: %s=%s - %s=%s - %s=%s",STAMPS.CN_WAY, whereArgs[0], STAMPS.CN_TIME,whereArgs[1], STAMPS.CN_DAY_ID, whereArgs[2]));
+			int rows = db.update(STAMPS.TABLE_NAME, values, whereClause, whereArgs);
+			Log.d(method,String.format("Rows affected: %d", rows));
+			}
+			catch (Exception e)
+			{
+				Log.d(method, "Exception while updating timestamp! " +e.getMessage());
+				return false;
+			}
+			
+			
+			
+		}
+		else 
+			{
+			Log.d(method, "Day does not exist! return FALSE!");
+			return false;
+			}
+			
+		return res;
+	}
 
 }

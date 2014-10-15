@@ -25,13 +25,13 @@ public class MyWidgetProvider extends AppWidgetProvider {
 
 		Toast.makeText(context, "OnUpdate!", Toast.LENGTH_SHORT).show();
 		Init(context, appWidgetManager, appWidgetIds);
-		UpdateTodayStamps(context);
+		RefreshTodayStamps(context);
 	}
 
 	@Override
 	public void onEnabled(Context context) {
 		Toast.makeText(context, "OnEnabled!", Toast.LENGTH_SHORT).show();
-		UpdateTodayStamps(context);
+		RefreshTodayStamps(context);
 	}
 
 	@Override
@@ -43,10 +43,12 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			if ((intent.getAction().equals(GlobalVars.BTN_STAMP_CLICK))) {//useless?
 				// IN or OUT? check STAMP_WAY in Extra
 			}
-			else if (intent.getAction().equals(WidgetService.SERVICE_INTENT_TIMESTAMP_UPDATED)){
+			else if ((intent.getAction().equals(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED))
+					||(intent.getAction().equals(GlobalVars.BTN_REFRESH_CLICK)))
+			{
 				//Service has stored the timestamp. Then it raised the intent to update all widgets IN/OUT items
 				Toast.makeText(context, "Updating widget UI...", Toast.LENGTH_SHORT).show();
-				UpdateTodayStamps(context);
+				RefreshTodayStamps(context);
 				Toast.makeText(context, "UI updated!", Toast.LENGTH_SHORT).show();
 				
 			}
@@ -97,6 +99,12 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			intentEdit.putExtra(GlobalVars.EXTRA_DAY, today.day);
 			PendingIntent pIntentEDIT =  PendingIntent.getActivity(c, intentEdit.hashCode(), intentEdit, 0);
 			rViews.setOnClickPendingIntent(R.id.btnWEdit, pIntentEDIT);
+			
+			//BTN REFRESH (Forse non è sufficiente)
+			Intent intentREF = new Intent(c,getClass());
+			intentREF.setAction(GlobalVars.BTN_REFRESH_CLICK);
+			PendingIntent pIntentREF = PendingIntent.getBroadcast(c, intentREF.hashCode(), intentREF, 0);
+			rViews.setOnClickPendingIntent(R.id.btnWRefresh, pIntentREF);
 				
 			// Appdate the current widget
 			appWidgetManager.updateAppWidget(AppWidgetId, rViews);
@@ -106,7 +114,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	
 	
 	//Fires when received an intent like "Update your timestamps" from service
-	protected void UpdateTodayStamps (Context c)
+	protected void RefreshTodayStamps (Context c)
 	{
 		//Retrieve list of stamps for today
 		Stamp today = Utils.getTodayAsStamp(c);
