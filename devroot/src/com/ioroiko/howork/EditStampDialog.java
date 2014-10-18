@@ -60,7 +60,20 @@ public class EditStampDialog extends DialogFragment {
                 	   newStamp.hour =tp.getCurrentHour();
                 	   newStamp.minute = tp.getCurrentMinute();
                 	   boolean result = helper.UpdateStampTime(oldStamp, newStamp);
-                	   Log.d("onCreateDialog", "Stamp time updated!");
+                	   if (result)
+                	   {
+                		   Log.d("onCreateDialog", "Stamp time updated!");
+                		   //Update ActivityEdit and Widget
+                		   ActivityEdit curActivity = (ActivityEdit)getActivity();
+                		   curActivity.updateStamps();
+                		   Intent updateIntent = new Intent(dialogView.getContext(), MyWidgetProvider.class);
+                		   updateIntent.setAction(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED);
+                		   curActivity.sendBroadcast(updateIntent);
+                		   
+                	   }
+                	   else{
+                		   Log.e("onCreateDialog", "Error in updateing the Stamp!");
+                	   }
                 	   
                 	   //Rocco: Aggiornare activity e widget qui!
                    }
