@@ -238,5 +238,46 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			
 		return res;
 	}
+	
+	public ArrayList<Stamp> GetStampsOfMonth(int year, int month, ArrayList<Integer> daysList)
+	{
+		ArrayList<Stamp> stamps = new ArrayList<Stamp>();
+		
+		/*select day, way, time from days join stamps on days.[_id]=[STAMPS].[day_id]
+		where month = 10 and year = 2014
+		order by day,time*/
+		String querySELECT = String.format("SELECT %s, %s, %s", DAYS.CN_DAY, STAMPS.CN_WAY, STAMPS.CN_TIME);
+		String queryFROM = String.format(" FROM %s JOIN %s ON %s.%s = %s.%s", DAYS.TABLE_NAME, STAMPS.TABLE_NAME, DAYS.TABLE_NAME, 
+				DAYS._ID, STAMPS.TABLE_NAME, STAMPS.CN_DAY_ID);
+		String queryWHERE = String.format(" WHERE %s = %s AND %s = %s", DAYS.CN_MONTH, String.valueOf(month), DAYS.CN_YEAR, String.valueOf(year));
+		String queryORDER = String.format(" ORDER BY %s, %s", DAYS.CN_DAY, STAMPS.CN_TIME);
+		String query = querySELECT + queryFROM + queryWHERE + queryORDER;
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+		
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast())
+		{
+			int day = cursor.getInt(cursor.getColumnIndex(DAYS.CN_DAY));
+			String time = cursor.getString(cursor.getColumnIndex(STAMPS.CN_TIME));
+			String[] timeSplit = time.split(":");
+			String way = cursor.getString(cursor.getColumnIndex(STAMPS.CN_WAY));
+			
+			Stamp tempStamp = new Stamp(year, month, day, Integer.parseInt(timeSplit[0]), Integer.parseInt(timeSplit[1]));
+			if (way.equals(HoWorkContract.STAMPS.WAY_IN))
+				tempStamp.way = GlobalVars.Way.IN;
+			else
+				tempStamp.way = GlobalVars.Way.OUT;
+			
+			stamps.add(tempStamp);
+			if (!daysList.contains(daysList))//sono già ordinati per giorno crescente (dalla query)
+				daysList.add(day);
+			cursor.moveToNext();
+		}
+		
+		return stamps;
+		
+	}
 
 }

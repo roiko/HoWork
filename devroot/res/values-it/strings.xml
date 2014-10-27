@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HoWork</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="hello_world">Esticazzi!</string>
+    <string name="title_activity_activity_edit">Modifica giorno</string>
+    <string name="title_activity_summary">Riassunto mensile</string>
+
+    
+    <string name="SU">Domenica</string>
+    <string name="MO">Lunedì</string>
+    <string name="TU">Martedì</string>
+    <string name="WE">Mercoledì</string>
+    <string name="TH">Giovedì</string>
+    <string name="FR">Venerdì</string>
+    <string name="SA">Sabato</string>
+</resources>

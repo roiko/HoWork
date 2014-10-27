@@ -99,7 +99,15 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			PendingIntent pIntentEDIT =  PendingIntent.getActivity(c, intentEdit.hashCode(), intentEdit, 0);
 			rViews.setOnClickPendingIntent(R.id.btnWEdit, pIntentEDIT);
 			
-			//BTN REFRESH (Forse non è sufficiente)
+			//Btn SUMMARY
+			Intent intentSUM = new Intent(c, SummaryActivity.class);
+			intentSUM.setAction(GlobalVars.BTN_SUM_CLICK);
+			intentSUM.putExtra(GlobalVars.EXTRA_YEAR, today.year);
+			intentSUM.putExtra(GlobalVars.EXTRA_MONTH, today.month);
+			PendingIntent pIntentSum =  PendingIntent.getActivity(c, intentSUM.hashCode(), intentSUM, 0);
+			rViews.setOnClickPendingIntent(R.id.btnWSummary, pIntentSum);
+			
+			//BTN REFRESH
 			Intent intentREF = new Intent(c,getClass());
 			intentREF.setAction(GlobalVars.BTN_REFRESH_CLICK);
 			PendingIntent pIntentREF = PendingIntent.getBroadcast(c, intentREF.hashCode(), intentREF, 0);

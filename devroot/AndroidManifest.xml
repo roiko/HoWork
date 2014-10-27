@@ -42,6 +42,10 @@
             android:name="com.ioroiko.howork.ActivityEdit"
             android:label="@string/title_activity_activity_edit" >
         </activity>
+        <activity
+            android:name="com.ioroiko.howork.SummaryActivity"
+            android:label="@string/title_activity_summary" >
+        </activity>
     </application>
 
 </manifest>

@@ -5,5 +5,14 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_activity_edit">Edit Day</string>
+    <string name="title_activity_summary">SummaryActivity</string>
 
+    
+    <string name="SU">Sunday</string>
+    <string name="MO">Monday</string>
+    <string name="TU">Tuesday</string>
+    <string name="WE">Wednesday</string>
+    <string name="TH">Thursday</string>
+    <string name="FR">Friday</string>
+    <string name="SA">Saturday</string>
 </resources>
