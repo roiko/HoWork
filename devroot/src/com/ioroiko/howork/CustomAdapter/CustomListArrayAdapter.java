@@ -73,10 +73,10 @@ public class CustomListArrayAdapter extends ArrayAdapter {
 		{
 			convertView = inflater.inflate(R.layout.custom_list_ltem, parent, false);//Una singola riga Stamp+bottoni
 			mycustomView = new ViewHolder();
-			mycustomView.tvWay = (TextView) convertView.findViewById(R.id.tvCIWay);
+			//mycustomView.tvWay = (TextView) convertView.findViewById(R.id.tvCIWay);
 			mycustomView.cvStamp = (CustomView) convertView.findViewById(R.id.tvCIStamp);
-			mycustomView.btnEdit = (Button) convertView.findViewById(R.id.btnCIEdit);
-			mycustomView.btnDel = (Button) convertView.findViewById(R.id.btnCIDel);
+			//mycustomView.btnEdit = (Button) convertView.findViewById(R.id.btnCIEdit);
+			//mycustomView.btnDel = (Button) convertView.findViewById(R.id.btnCIDel);
 			convertView.setTag(mycustomView);
 		}
 		else
@@ -84,8 +84,9 @@ public class CustomListArrayAdapter extends ArrayAdapter {
 			mycustomView = (ViewHolder) convertView.getTag(); //riuso inflate precedente (best practice)
 		}
 		
-		mycustomView.tvWay.setText(stamp.way.toString());
-		mycustomView.cvStamp.setText(stamp.getTime());
+		//mycustomView.tvWay.setText(stamp.way.toString());
+		String text = String.format("%s\t\t%s", stamp.getTime(),stamp.way.toString());
+		mycustomView.cvStamp.setText(text);
 		mycustomView.cvStamp.stamp = stamp;
 			
 		return convertView;

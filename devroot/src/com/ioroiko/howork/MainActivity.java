@@ -25,6 +25,15 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
+    
+    //Finish the activity when user presses Home/Back button
+    @Override
+    public void onPause()
+    {
+    	finish();
+    	super.onPause();
+    }
 
     
 }
