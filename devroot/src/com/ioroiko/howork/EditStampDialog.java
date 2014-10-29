@@ -16,23 +16,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TimePicker;
-
+import android.widget.Toast;
 
 /**
- * @author roiko
- *This class represent a Fragment containing a Dialog with layout specified in edit_stamp_dialod.xml
- *
+ * @author roiko This class represent a Fragment containing a Dialog with layout
+ *         specified in edit_stamp_dialog.xml
+ * 
  */
 public class EditStampDialog extends DialogFragment {
-	
+
 	public Stamp diaStamp;
 	View dialogView;
-	//public AlertDialog dialog;
-	
+
+	// public AlertDialog dialog;
+
 	public EditStampDialog() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -48,9 +49,9 @@ public class EditStampDialog extends DialogFragment {
         if (diaStamp!=null)//Update TimePicker with current stamp
         	setTime();
         
-        builder.setMessage("Stai cambianto l'ora " + this.diaStamp.getTime());
+        builder.setMessage(String.format("%s: %s",getString(R.string.dialogTitle) , this.diaStamp.getTime()));
         
-        builder.setPositiveButton("Salva", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.dialogPositive), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                 	   // User confirms save
                 	   HoWorkSQLHelper helper = new HoWorkSQLHelper(getActivity());
@@ -69,39 +70,43 @@ public class EditStampDialog extends DialogFragment {
                 		   Intent updateIntent = new Intent(dialogView.getContext(), MyWidgetProvider.class);
                 		   updateIntent.setAction(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED);
                 		   curActivity.sendBroadcast(updateIntent);
-                		   
                 	   }
                 	   else{
                 		   Log.e("onCreateDialog", "Error in updateing the Stamp!");
                 	   }
-                	   
-                	   //Rocco: Aggiornare activity e widget qui!
                    }
                });
        
-        builder.setNegativeButton("Cancella", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.dialogNegative), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                       // User cancelled the dialog
+                	// ROCCO: Remove the stamp here!
+       				ActivityEdit curActivity = (ActivityEdit) getActivity();
+       				Toast.makeText(curActivity,"Deleting Stamp",Toast.LENGTH_SHORT).show();
                    }
                });
+        
+        builder.setNeutralButton(getString(R.string.dialogNeutral), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
         
         
         
         // Create the AlertDialog object and return it
         return builder.create();
     }
-	
-	public void setStamp(Stamp stamp)
-	{
+
+	public void setStamp(Stamp stamp) {
 		diaStamp = stamp;
 	}
-	
-	private void setTime()
-	{
+
+	private void setTime() {
 		TimePicker tp = (TimePicker) dialogView.findViewById(R.id.timePicker1);
 		tp.setCurrentHour(diaStamp.hour);
 		tp.setCurrentMinute(diaStamp.minute);
-		
+
 	}
 
 }

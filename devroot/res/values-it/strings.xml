@@ -3,10 +3,14 @@
 
     <string name="app_name">HoWork</string>
     <string name="action_settings">Impostazioni</string>
-    <string name="hello_world">Esticazzi!</string>
     <string name="title_activity_activity_edit">Modifica giorno</string>
     <string name="title_activity_summary">Riassunto mensile</string>
 
+    <!-- DialogEdit -->
+    <string name="dialogTitle">Modifica timbratura</string>
+    <string name="dialogPositive">Salva</string>
+    <string name="dialogNegative">Elimina</string>
+    <string name="dialogNeutral">Annulla</string>
     
     <string name="SU">Domenica</string>
     <string name="MO">Lunedì</string>
@@ -15,4 +19,5 @@
     <string name="TH">Giovedì</string>
     <string name="FR">Venerdì</string>
     <string name="SA">Sabato</string>
+
 </resources>
