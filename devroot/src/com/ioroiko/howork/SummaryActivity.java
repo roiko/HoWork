@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class SummaryActivity extends Activity {
 
@@ -41,7 +42,8 @@ public class SummaryActivity extends Activity {
 																// numbers which
 																// have stamps
 		ArrayList<Stamp> stamps = helper.GetStampsOfMonth(year, month, dayList);
-		
+		TextView tvMonth = (TextView) findViewById(R.id.tvSummaryMonth);
+		tvMonth.setText(String.format("%s %s", Utils.GetMonthNameFromDate(this, month), year));
 		int a = 0;
 		List<DayStamp> list = Utils.ConvertStampArrayListToListDayStamp(stamps);
 		// ========================================================

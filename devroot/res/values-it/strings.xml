@@ -19,5 +19,18 @@
     <string name="TH">Giovedì</string>
     <string name="FR">Venerdì</string>
     <string name="SA">Sabato</string>
+    
+    <string name="JAN">Gennaio</string>
+    <string name="FEB">Febbraio</string>
+    <string name="MAR">Marzo</string>
+    <string name="APR">Aprile</string>
+    <string name="MAY">Maggio</string>
+    <string name="JUN">Giugno</string>
+    <string name="JUL">Luglio</string>
+    <string name="AUG">Agosto</string>
+    <string name="SEP">Settembre</string>
+    <string name="OCT">Ottobre</string>
+    <string name="NOV">Novembre</string>
+    <string name="DEC">Dicembre</string>
 
 </resources>

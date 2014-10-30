@@ -13,7 +13,7 @@ import android.content.res.Resources;
 import android.text.format.Time;
 
 public class Utils {
-	
+
 	public static Stamp getTodayAsStamp(Context context) {
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
@@ -26,82 +26,115 @@ public class Utils {
 		Stamp stamp = new Stamp(year, month, day, hour, minute);
 		return stamp;
 	}
-	
-	public static List<DayStamp> ConvertStampArrayListToListDayStamp(ArrayList<Stamp> aa)
-	{
+
+	public static List<DayStamp> ConvertStampArrayListToListDayStamp(
+			ArrayList<Stamp> aa) {
 		List<DayStamp> list = new LinkedList<DayStamp>();
-		int day=-1;
-		DayStamp tempDayStamp=new DayStamp();
+		int day = -1;
+		DayStamp tempDayStamp = new DayStamp();
 		for (Stamp stamp : aa) {
-			if (day==-1)
-			{
-				day=stamp.day;
+			if (day == -1) {
+				day = stamp.day;
 				tempDayStamp = new DayStamp();
-				tempDayStamp.Day=stamp.day;
-				tempDayStamp.Month=stamp.month;
-				tempDayStamp.Year=stamp.year;
+				tempDayStamp.Day = stamp.day;
+				tempDayStamp.Month = stamp.month;
+				tempDayStamp.Year = stamp.year;
 			}
-			if (day==stamp.day)
-			{
-				//Sto collezionando gli stamp di questo giorno
+			if (day == stamp.day) {
+				// Sto collezionando gli stamp di questo giorno
 				tempDayStamp.Stamps.add(stamp);
 			}
-			if (day!=stamp.day)
-			{
-				//Ricado qui se, ciclando, ho cambiato giorno. Quindi aggiungo DayStamp alla lista, 
-				//altrimenti continuo ad aggiungere stamp a DayStamp
+			if (day != stamp.day) {
+				// Ricado qui se, ciclando, ho cambiato giorno. Quindi aggiungo
+				// DayStamp alla lista,
+				// altrimenti continuo ad aggiungere stamp a DayStamp
 				list.add(tempDayStamp);
 				day = stamp.day;
-				tempDayStamp=new DayStamp();
-				tempDayStamp.Day=stamp.day;
-				tempDayStamp.Month=stamp.month;
-				tempDayStamp.Year=stamp.year;
+				tempDayStamp = new DayStamp();
+				tempDayStamp.Day = stamp.day;
+				tempDayStamp.Month = stamp.month;
+				tempDayStamp.Year = stamp.year;
 				tempDayStamp.Stamps.add(stamp);
 			}
 		}
-		list.add(tempDayStamp);//Aggiungo l'ultimo giorno
-		
+		list.add(tempDayStamp);// Aggiungo l'ultimo giorno
+
 		return list;
 	}
-	
-	
-	public static String GetDayNameFromDate(Context c, int day, int month, int year)
-	{
-		GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
-		calendar.set(year, month-1, day);
+
+	public static String GetDayNameFromDate(Context c, int day, int month,
+			int year) {
+		GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar
+				.getInstance();
+		calendar.set(year, month - 1, day);
 		int dayI = calendar.get(GregorianCalendar.DAY_OF_WEEK);
 		return GetDayOfWeekNameFromint(c, dayI);
 	}
-	
-	private static String GetDayOfWeekNameFromint(Context c, int dayI)
-	{
-		//return c.getResources().getString(R.string.SU);
-		
+
+	private static String GetDayOfWeekNameFromint(Context c, int dayI) {
 		switch (dayI) {
 		case 1:
 			return c.getResources().getString(R.string.SU);
-			
+
 		case 2:
 			return c.getResources().getString(R.string.MO);
-			
+
 		case 3:
 			return c.getResources().getString(R.string.TU);
-			
+
 		case 4:
 			return c.getResources().getString(R.string.WE);
-			
+
 		case 5:
 			return c.getResources().getString(R.string.TH);
-			
+
 		case 6:
 			return c.getResources().getString(R.string.FR);
-			
+
 		case 7:
 			return c.getResources().getString(R.string.SA);
-			
+
 		default:
 			return "";
 		}
 	}
+
 	
+	public static String GetMonthNameFromDate(Context c, int month)
+	{
+		return GetMonthNameFromInt(c, month);
+	}
+
+	private static String GetMonthNameFromInt(Context c, int month) {
+		switch (month) {
+		case 1:
+			return c.getResources().getString(R.string.JAN);
+		case 2:
+			return c.getResources().getString(R.string.FEB);
+		case 3:
+			return c.getResources().getString(R.string.MAR);
+		case 4:
+			return c.getResources().getString(R.string.APR);
+		case 5:
+			return c.getResources().getString(R.string.MAY);
+		case 6:
+			return c.getResources().getString(R.string.JUN);
+		case 7:
+			return c.getResources().getString(R.string.JUL);
+		case 8:
+			return c.getResources().getString(R.string.AUG);
+		case 9:
+			return c.getResources().getString(R.string.SEP);
+		case 10:
+			return c.getResources().getString(R.string.OCT);
+		case 11:
+			return c.getResources().getString(R.string.NOV);
+		case 12:
+			return c.getResources().getString(R.string.DEC);
+		default:
+			return "";
+		}
+
+	}
+
 }

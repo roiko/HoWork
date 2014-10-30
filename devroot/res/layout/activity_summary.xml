@@ -5,11 +5,11 @@
     android:background="#353535">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvSummaryMonth"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Month"
+        android:text=""
         android:layout_margin="10dp"
         android:textColor="#1cb0e7"
         android:textStyle="bold"

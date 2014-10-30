@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ActivityEdit extends Activity {
 
@@ -31,6 +32,8 @@ public class ActivityEdit extends Activity {
 		month = receivedIntent.getIntExtra(GlobalVars.EXTRA_MONTH, -1);
 		day = receivedIntent.getIntExtra(GlobalVars.EXTRA_DAY, -1);
 
+		TextView tvDate = (TextView) findViewById(R.id.tvDate);
+		tvDate.setText(String.format("%s %s %s, %s", Utils.GetDayNameFromDate(this, day, month, year), day, Utils.GetMonthNameFromDate(this, month), year));
 		ListView listView = (ListView) findViewById(R.id.listView1);
 		ArrayList<Stamp> todayStamps = _aHelper
 				.GetStampsOfDay(year, month, day);

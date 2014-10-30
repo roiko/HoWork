@@ -20,4 +20,18 @@
     <string name="FR">Friday</string>
     <string name="SA">Saturday</string>
 
+    
+    <string name="JAN">January</string>
+    <string name="FEB">February</string>
+    <string name="MAR">March</string>
+    <string name="APR">April</string>
+    <string name="MAY">May</string>
+    <string name="JUN">June</string>
+    <string name="JUL">July</string>
+    <string name="AUG">August</string>
+    <string name="SEP">September</string>
+    <string name="OCT">October</string>
+    <string name="NOV">November</string>
+    <string name="DEC">December</string>
+
 </resources>
