@@ -72,16 +72,33 @@ public class EditStampDialog extends DialogFragment {
                 		   curActivity.sendBroadcast(updateIntent);
                 	   }
                 	   else{
-                		   Log.e("onCreateDialog", "Error in updateing the Stamp!");
+                		   Log.e("onCreateDialog", "Error in updating the Stamp!");
                 	   }
                    }
                });
        
         builder.setNegativeButton(getString(R.string.dialogNegative), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                	// ROCCO: Remove the stamp here!
-       				ActivityEdit curActivity = (ActivityEdit) getActivity();
-       				Toast.makeText(curActivity,"Deleting Stamp",Toast.LENGTH_SHORT).show();
+                	//Remove the stamp!
+            	   HoWorkSQLHelper helper = new HoWorkSQLHelper(getActivity());
+            	   Stamp delStamp = new Stamp(diaStamp.year,diaStamp.month, diaStamp.day,diaStamp.hour,diaStamp.minute);
+            	   delStamp.way = diaStamp.way;
+            	   boolean res = helper.RemoveStamp(delStamp);
+            	   
+            	   if (res)
+            	   {
+            		   ActivityEdit curActivity = (ActivityEdit) getActivity();
+            		   curActivity.updateStamps();
+            		   Intent updateIntent = new Intent(dialogView.getContext(), MyWidgetProvider.class);
+            		   updateIntent.setAction(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED);
+            		   curActivity.sendBroadcast(updateIntent);
+            	   }
+            	   else {
+            		   Log.e("onCreateDialog", "Error in removing the Stamp!");
+				}
+            	   
+            	   
+       				
                    }
                });
         

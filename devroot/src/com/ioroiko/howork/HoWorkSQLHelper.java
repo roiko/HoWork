@@ -99,6 +99,48 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 		return id_Day;
 
 	}
+	
+	
+	/**
+	 * @param Stamp
+	 * @return the ID of the first occurrence of that stamp (normally there is only one occurrence, unless there are more than 1 stamp in the same way and the same time...
+	 */
+	public int StampExist(Stamp stamp)
+	{
+		/* select stamps.[_id] from days join stamps on days.[_id]=[STAMPS].[day_id]
+		where day = [GIORNO] AND month = [MESE] and year = [ANNO] and way=[WAY] and time = [GETTIME]*/
+		String method = "StampExist";
+		int stampID = -1;
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] cols = new String[]{STAMPS._ID}; 
+		//String sel = String.format("%s=? AND %s=? AND %s=?", STAMPS.CN_DAY_ID);
+		//String[] selArgs = new String[] { String.valueOf(year),String.valueOf(month), String.valueOf(day) };
+
+		String select = String.format("SELECT %s.%s", STAMPS.TABLE_NAME, STAMPS._ID);
+		String from = String.format(" FROM %s JOIN %s ON %s.%s=%s.%s", STAMPS.TABLE_NAME, DAYS.TABLE_NAME, STAMPS.TABLE_NAME,STAMPS.CN_DAY_ID,DAYS.TABLE_NAME,DAYS._ID);
+		String where = String.format(" WHERE %s=? AND %s=? AND %s=? AND %s=? AND %s=?", DAYS.CN_DAY, DAYS.CN_MONTH, DAYS.CN_YEAR, STAMPS.CN_WAY, STAMPS.CN_TIME);
+		String[] selArgs = new String[]{String.valueOf(stamp.day), String.valueOf(stamp.month), String.valueOf(stamp.year), stamp.way.toString(), stamp.getTime()};
+		String rawQuery = select + from + where;
+	
+		Cursor cursor = db.rawQuery(rawQuery, selArgs);
+
+		/*
+		 * String[] columns = new String[]{DAYS.CN_YEAR, DAYS.CN_MONTH,
+		 * DAYS.CN_DAY}; String where = DAYS.CN_YEAR+" =? AND " + DAYS.CN_MONTH
+		 * +"=? AND "+ DAYS.CN_DAY +"=?"; String[] selArgs = new
+		 * String[]{String.valueOf(year), String.valueOf(month),
+		 * String.valueOf(day)}; String orderBy = DAYS.CN_YEAR +","+
+		 * DAYS.CN_MONTH+","+ DAYS.CN_DAY; db.query(true,
+		 * DAYS.TABLE_NAME,columns, DAYS.CN_YEAR , selArgs, null, null, orderBy,
+		 * null, null);
+		 */
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			stampID = cursor.getInt(cursor.getColumnIndex(DAYS._ID));
+			Log.d(method, "Stamp found with _ID = " + stampID);
+		}
+		return stampID;
+	}
 
 	/**
 	 * @param year
@@ -236,6 +278,42 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			return false;
 			}
 			
+		return res;
+	}
+	
+	
+	public boolean RemoveStamp(Stamp stamp)
+	{
+		boolean res = true;
+		String method = "RemoveStamp";
+		//StampExist
+		int existingIDStamp = StampExist(stamp);
+		if (existingIDStamp!=-1)
+		{
+			Log.d(method,String.format("Stamp exists (ID = %d)",existingIDStamp));
+			try
+			{
+				
+			SQLiteDatabase db = this.getWritableDatabase();
+			String table = STAMPS.TABLE_NAME;
+			String whereClause = String.format("%s=?", STAMPS._ID);
+			String[] whereArgs = new String[]{String.valueOf(existingIDStamp)};
+			Log.d(method, String.format("Update query parameters: %s=%s", STAMPS.CN_DAY_ID, whereArgs[0]));
+			int rows = db.delete(table, whereClause, whereArgs);
+			Log.d(method,String.format("Rows affected: %d", rows));
+			}
+			catch (Exception e)
+			{
+				Log.d(method, "Exception while updating timestamp! " +e.getMessage());
+				return false;
+			}
+
+		}
+		else 
+			{
+			Log.d(method, "Stamp does not exist! return FALSE!");
+			return false;
+			}
 		return res;
 	}
 	
