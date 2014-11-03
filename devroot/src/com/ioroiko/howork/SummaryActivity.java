@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SummaryActivity extends Activity {
 
@@ -23,17 +24,38 @@ public class SummaryActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_summary);
-		Intent intent = getIntent();
+		/*Intent intent = getIntent();
 		year = intent.getIntExtra(GlobalVars.EXTRA_YEAR, -1);
 		month = intent.getIntExtra(GlobalVars.EXTRA_MONTH, -1);
-		GetStampsOfMonth();
+		GetStampsOfMonth();*/
+		Draw();
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.summary, menu);
 		return true;
+	}
+	
+	@Override
+	protected void onStart()
+	{
+		super.onStart();
+		Draw();
+	}
+	
+	private void Draw()
+	{
+		Intent intent = getIntent();
+		year = intent.getIntExtra(GlobalVars.EXTRA_YEAR, -1);
+		month = intent.getIntExtra(GlobalVars.EXTRA_MONTH, -1);
+		
+		
+		
+		GetStampsOfMonth();
 	}
 
 	public void GetStampsOfMonth() {
@@ -44,11 +66,11 @@ public class SummaryActivity extends Activity {
 		ArrayList<Stamp> stamps = helper.GetStampsOfMonth(year, month, dayList);
 		TextView tvMonth = (TextView) findViewById(R.id.tvSummaryMonth);
 		tvMonth.setText(String.format("%s %s", Utils.GetMonthNameFromDate(this, month), year));
-		int a = 0;
 		List<DayStamp> list = Utils.ConvertStampArrayListToListDayStamp(stamps);
 		// ========================================================
-		if (!list.isEmpty()) {
-			ListView listView = (ListView) findViewById(R.id.listViewSummary);
+		ListView listView = (ListView) findViewById(R.id.listViewSummary);
+		listView.setAdapter(null);//Clear previous children, if any
+		if (!(list.size()==0)) {
 			SummaryAdapter summaryAdapter = new SummaryAdapter(this,
 					R.layout.day_stamp, list);
 			listView.setAdapter(summaryAdapter);

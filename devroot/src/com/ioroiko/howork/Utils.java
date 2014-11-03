@@ -30,34 +30,38 @@ public class Utils {
 	public static List<DayStamp> ConvertStampArrayListToListDayStamp(
 			ArrayList<Stamp> aa) {
 		List<DayStamp> list = new LinkedList<DayStamp>();
-		int day = -1;
-		DayStamp tempDayStamp = new DayStamp();
-		for (Stamp stamp : aa) {
-			if (day == -1) {
-				day = stamp.day;
-				tempDayStamp = new DayStamp();
-				tempDayStamp.Day = stamp.day;
-				tempDayStamp.Month = stamp.month;
-				tempDayStamp.Year = stamp.year;
+		if (!aa.isEmpty()) {
+
+			int day = -1;
+			DayStamp tempDayStamp = new DayStamp();
+			for (Stamp stamp : aa) {
+				if (day == -1) {
+					day = stamp.day;
+					tempDayStamp = new DayStamp();
+					tempDayStamp.Day = stamp.day;
+					tempDayStamp.Month = stamp.month;
+					tempDayStamp.Year = stamp.year;
+				}
+				if (day == stamp.day) {
+					// Sto collezionando gli stamp di questo giorno
+					tempDayStamp.Stamps.add(stamp);
+				}
+				if (day != stamp.day) {
+					// Ricado qui se, ciclando, ho cambiato giorno. Quindi
+					// aggiungo
+					// DayStamp alla lista,
+					// altrimenti continuo ad aggiungere stamp a DayStamp
+					list.add(tempDayStamp);
+					day = stamp.day;
+					tempDayStamp = new DayStamp();
+					tempDayStamp.Day = stamp.day;
+					tempDayStamp.Month = stamp.month;
+					tempDayStamp.Year = stamp.year;
+					tempDayStamp.Stamps.add(stamp);
+				}
 			}
-			if (day == stamp.day) {
-				// Sto collezionando gli stamp di questo giorno
-				tempDayStamp.Stamps.add(stamp);
-			}
-			if (day != stamp.day) {
-				// Ricado qui se, ciclando, ho cambiato giorno. Quindi aggiungo
-				// DayStamp alla lista,
-				// altrimenti continuo ad aggiungere stamp a DayStamp
-				list.add(tempDayStamp);
-				day = stamp.day;
-				tempDayStamp = new DayStamp();
-				tempDayStamp.Day = stamp.day;
-				tempDayStamp.Month = stamp.month;
-				tempDayStamp.Year = stamp.year;
-				tempDayStamp.Stamps.add(stamp);
-			}
+			list.add(tempDayStamp);// Aggiungo l'ultimo giorno
 		}
-		list.add(tempDayStamp);// Aggiungo l'ultimo giorno
 
 		return list;
 	}
@@ -99,9 +103,7 @@ public class Utils {
 		}
 	}
 
-	
-	public static String GetMonthNameFromDate(Context c, int month)
-	{
+	public static String GetMonthNameFromDate(Context c, int month) {
 		return GetMonthNameFromInt(c, month);
 	}
 
