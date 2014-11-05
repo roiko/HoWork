@@ -1,0 +1,18 @@
+CREATE TABLE DAYS (
+  year INTEGER, 
+  month INT, 
+  day INT, 
+  id UNIQUEIDENTIFIER);
+
+
+CREATE TABLE DBINFO (
+  key TEXT, 
+  value TEXT);
+
+
+CREATE TABLE STAMPS (
+  way TEXT, 
+  time TEXT, 
+  day_id INTEGER CONSTRAINT day_id REFERENCES DAYS(id) ON DELETE CASCADE);
+
+

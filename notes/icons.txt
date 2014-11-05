@@ -1,0 +1,6 @@
+sizes are:
+	MDPI: 48x48
+	HDPI: 72x72
+    XHDPI: 96x96
+    XXHDPI: 144x144
+    XXXHDPI: 192x192
