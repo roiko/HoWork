@@ -17,25 +17,28 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="4"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="[data oggi]" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnWIN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_in_selector"
-            android:text="" />
+            style="@style/btnWidgetStyle"
+            android:src="@drawable/login"
+            android:background="@drawable/btn_selector_widget"
+            android:contentDescription="IN" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnWOUT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/logout"
-            android:text="" />
+            style="@style/btnWidgetStyle"
+            android:src="@drawable/logout"
+            android:background="@drawable/btn_selector_widget"
+            android:contentDescription="OUT"
+            />
     </LinearLayout>
 
     <!-- Centre -->
@@ -44,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical" >
 
         <!-- riga degli IN-OUT... -->
@@ -215,22 +218,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <Button
+        <ImageButton
             android:id="@+id/btnWEdit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/btn_edit_selector"
+            style="@style/btnWidgetStyle"
+            android:src="@drawable/pencil"
+            android:background="@drawable/btn_selector_widget"
             android:text="" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnWSummary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="[Sum]" />
-        <Button
+        <ImageButton
             android:id="@+id/btnWRefresh"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
