@@ -1,5 +1,6 @@
 package com.ioroiko.howork.SummaryAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ioroiko.howork.ActivityEdit;
@@ -12,6 +13,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.sax.StartElementListener;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,11 +68,22 @@ public class SummaryAdapter extends ArrayAdapter<DayStamp> {
 	        TextView tvStamps = (TextView)convertView.findViewById(R.id.tvStamps);
 	        
 	        final DayStamp dayStamp = getItem(position);
-	        //Rocco: (miglioramento) qui usare il locale
 	        tvDate.setText(String.format("%s/%s/%s - %s", dayStamp.Day, dayStamp.Month, dayStamp.Year, Utils.GetDayNameFromDate(convertView.getContext(), dayStamp.Day, dayStamp.Month,dayStamp.Year)));
 	        String sStamps = "";
+	       // ArrayList<Spannable> spannables = new ArrayList<Spannable>();
+	        
 	        for (Stamp stamp : dayStamp.Stamps) {
-				sStamps +=  String.format(" %s\t\t %s\n", stamp.getTime(),stamp.way.toString());
+	        	
+	        	Spannable tempSpannable = new SpannableString(stamp.getTime()+"\n");
+	        	if (stamp.way.toString().equals(GlobalVars.Way.IN.toString()))
+	        	tempSpannable.setSpan(new ForegroundColorSpan(convertView.getResources().getColor(R.color.greenHoWork)), 0, tempSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+	        	else
+	        		tempSpannable.setSpan(new ForegroundColorSpan(convertView.getResources().getColor(R.color.redHoWork)), 0, tempSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);	
+	        	//spannables.add(tempSpannable);
+	        	tvStamps.append(tempSpannable);
+				//sStamps +=  String.format(" %s\t\t %s\n", stamp.getTime(),stamp.way.toString());
+				
+				
 			}
 	        
 	        tvStamps.setOnClickListener(new OnClickListener() {
@@ -85,7 +100,7 @@ public class SummaryAdapter extends ArrayAdapter<DayStamp> {
 				}
 			});
 
-	        tvStamps.setText(sStamps);
+	        //tvStamps.setText(sStamps);
 	        return convertView;
 	
 	}

@@ -2,8 +2,11 @@ package com.ioroiko.howork.CustomAdapter;
 
 import java.util.List;
 
+import com.ioroiko.howork.GlobalVars;
+import com.ioroiko.howork.GlobalVars.Way;
 import com.ioroiko.howork.R;
 import com.ioroiko.howork.Stamp;
+import com.ioroiko.howork.Utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -88,7 +91,12 @@ public class CustomListArrayAdapter extends ArrayAdapter {
 		String text = String.format("%s\t\t%s", stamp.getTime(),stamp.way.toString());
 		mycustomView.cvStamp.setText(text);
 		mycustomView.cvStamp.stamp = stamp;
-			
+		if (stamp.way.equals(GlobalVars.Way.IN))
+			mycustomView.cvStamp.setTextColor(convertView.getResources().getColor(R.color.greenHoWork));
+		else
+			mycustomView.cvStamp.setTextColor(convertView.getResources().getColor(R.color.redHoWork));
+		
+		
 		return convertView;
 	
 	}
