@@ -4,6 +4,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     
+    <color name="blueHoWork">#1cb0e7</color>
+    <color name="greenHoWork">#367e46</color>
+    <color name="redHoWork">#b03f3f</color>
     <color name="widgetBtnColor">#8C181822</color>
     <color name="widgetBtnColor_D">#8Ce1e1e1</color>
 

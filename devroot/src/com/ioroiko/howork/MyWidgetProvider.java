@@ -168,6 +168,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 							.getTime());
 					break;
 				case 2:
+					rViews.setViewVisibility(R.id.tvPIPE1, View.VISIBLE);
 					rViews.setViewVisibility(R.id.tvTSIN2, View.VISIBLE);
 					rViews.setTextViewText(R.id.tvTSIN2, stampsOfToday.get(i)
 							.getTime());
@@ -178,6 +179,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 							.getTime());
 					break;
 				case 4:
+					rViews.setViewVisibility(R.id.tvPIPE2, View.VISIBLE);
 					rViews.setViewVisibility(R.id.tvTSIN3, View.VISIBLE);
 					rViews.setTextViewText(R.id.tvTSIN3, stampsOfToday.get(i)
 							.getTime());
@@ -188,6 +190,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 							.getTime());
 					break;
 				case 6:
+					rViews.setViewVisibility(R.id.tvPIPE3, View.VISIBLE);
 					rViews.setViewVisibility(R.id.tvTSIN4, View.VISIBLE);
 					rViews.setTextViewText(R.id.tvTSIN4, stampsOfToday.get(i)
 							.getTime());
@@ -222,6 +225,10 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		rViews.setTextViewText(R.id.tvTSIN4, "");
 		rViews.setViewVisibility(R.id.tvTSOUT4, View.VISIBLE);
 		rViews.setTextViewText(R.id.tvTSOUT4, "");
+		
+		rViews.setViewVisibility(R.id.tvPIPE1, View.INVISIBLE);
+		rViews.setViewVisibility(R.id.tvPIPE2, View.INVISIBLE);
+		rViews.setViewVisibility(R.id.tvPIPE3, View.INVISIBLE);
 
 		AppWidgetManager.getInstance(c).updateAppWidget(providerName, rViews);
 	}
