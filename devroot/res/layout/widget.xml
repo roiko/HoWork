@@ -222,8 +222,7 @@
             android:id="@+id/btnWEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="0dp"
             style="@style/btnWidgetStyle"
             android:src="@drawable/pencil"
             android:background="@drawable/btn_selector_widget"
@@ -231,16 +230,23 @@
 
         <ImageButton
             android:id="@+id/btnWSummary"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="[Sum]" />
+            android:layout_marginLeft="10dp"
+            style="@style/btnWidgetStyle"
+            android:src="@drawable/calendar"
+            android:background="@drawable/btn_selector_widget"
+            android:text="" />
+        
         <ImageButton
             android:id="@+id/btnWRefresh"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="[Refresh]" />
+            android:layout_marginLeft="10dp"
+            style="@style/btnWidgetStyle"
+            android:src="@drawable/refresh"
+            android:background="@drawable/btn_selector_widget"
+            android:text="" />
     </LinearLayout>
 
 </LinearLayout>
