@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,19 @@ public class SummaryActivity extends Activity {
 		year = intent.getIntExtra(GlobalVars.EXTRA_YEAR, -1);
 		month = intent.getIntExtra(GlobalVars.EXTRA_MONTH, -1);
 		GetStampsOfMonth();*/
+		Intent intent = getIntent();
+		year = intent.getIntExtra(GlobalVars.EXTRA_YEAR, -1);
+		month = intent.getIntExtra(GlobalVars.EXTRA_MONTH, -1);
+		Draw();
+	}
+	
+	@Override 
+	protected void onResume()
+	{
+		super.onResume();
+		Intent intent = getIntent();
+		year = intent.getIntExtra(GlobalVars.EXTRA_YEAR, -1);
+		month = intent.getIntExtra(GlobalVars.EXTRA_MONTH, -1);
 		Draw();
 	}
 	
@@ -49,16 +63,6 @@ public class SummaryActivity extends Activity {
 	
 	private void Draw()
 	{
-		Intent intent = getIntent();
-		year = intent.getIntExtra(GlobalVars.EXTRA_YEAR, -1);
-		month = intent.getIntExtra(GlobalVars.EXTRA_MONTH, -1);
-		
-		
-		
-		GetStampsOfMonth();
-	}
-
-	public void GetStampsOfMonth() {
 		HoWorkSQLHelper helper = new HoWorkSQLHelper(this);
 		ArrayList<Integer> dayList = new ArrayList<Integer>(); // List of day
 																// numbers which
@@ -76,6 +80,34 @@ public class SummaryActivity extends Activity {
 			listView.setAdapter(summaryAdapter);
 		}
 		// ========================================================
+	}
+
+	public void PrevClick(View v)
+	{
+		if (month==1) 
+		{
+			year--;
+			month=12;
+		}
+		else
+		{
+			month--;
+		}
+		Draw();
+	}
+	
+	public void NextClick(View v)
+	{
+		if (month==12) 
+		{
+			year++;
+			month=1;
+		}
+		else
+		{
+			month++;
+		}
+		Draw();
 	}
 	
 }
