@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	
+	<string name="installedMsg">App installata correttamente! \n\nCopia il widget nella schermata home!</string>
 
     <string name="app_name">HoWork</string>
     <string name="action_settings">Impostazioni</string>
