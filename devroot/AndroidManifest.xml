@@ -40,11 +40,13 @@
 
         <activity
             android:name="com.ioroiko.howork.ActivityEdit"
-            android:label="@string/title_activity_activity_edit" >
+            android:label="@string/title_activity_activity_edit" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.ioroiko.howork.SummaryActivity"
-            android:label="@string/title_activity_summary" >
+            android:label="@string/title_activity_summary" 
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
