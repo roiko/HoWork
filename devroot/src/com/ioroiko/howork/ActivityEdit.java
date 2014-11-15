@@ -49,4 +49,12 @@ public class ActivityEdit extends Activity {
 		return true;
 	}
 	
+	//Finish the activity when user presses Back/Home button
+	@Override
+	public void onPause()
+	{
+		finish();
+		super.onPause();
+	}
+	
 }

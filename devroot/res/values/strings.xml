@@ -13,6 +13,7 @@
     <string name="dialogPositive">Update</string>
     <string name="dialogNegative">Remove</string>
     <string name="dialogNeutral">Cancel</string>
+    <string name="cantRemove">Only last stamp can be removed!</string>
     
     <string name="SU">Sunday</string>
     <string name="MO">Monday</string>

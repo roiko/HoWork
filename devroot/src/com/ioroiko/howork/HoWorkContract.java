@@ -85,7 +85,7 @@ public final class HoWorkContract {
         		" JOIN "+ DAYS.TABLE_NAME +
         		" ON "+STAMPS.TABLE_NAME+"."+STAMPS.CN_DAY_ID +"="+DAYS.TABLE_NAME+"."+ DAYS._ID +
         		" WHERE " + DAYS.CN_YEAR + " =? AND " + DAYS.CN_MONTH + " =? AND " + DAYS.CN_DAY + " =?"+
-        		"ORDER BY " + CN_TIME ;
+        		"ORDER BY " + TABLE_NAME+"."+ _ID + ", "+ CN_TIME ;
     }
     
 }

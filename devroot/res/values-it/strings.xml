@@ -13,6 +13,7 @@
     <string name="dialogPositive">Salva</string>
     <string name="dialogNegative">Elimina</string>
     <string name="dialogNeutral">Annulla</string>
+    <string name="cantRemove">Solo l\'ultima timbratura può essere rimossa!</string>
     
     <string name="SU">Domenica</string>
     <string name="MO">Lunedì</string>

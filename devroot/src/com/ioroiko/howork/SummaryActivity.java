@@ -110,4 +110,12 @@ public class SummaryActivity extends Activity {
 		Draw();
 	}
 	
+	//Finish the activity when user presses Back/Home button
+	@Override
+	public void onPause()
+	{
+		finish();
+		super.onPause();
+	}
+	
 }

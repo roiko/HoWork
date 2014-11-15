@@ -106,6 +106,23 @@ public class Utils {
 	public static String GetMonthNameFromDate(Context c, int month) {
 		return GetMonthNameFromInt(c, month);
 	}
+	
+	public static boolean StampsAreEqual(Stamp s1, Stamp s2)
+	{
+		if(s1.day!=s2.day)
+			return false;
+		if (s1.month!=s2.month)
+			return false;
+		if (s1.year!=s2.year)
+			return false;
+		if (s1.minute!=s2.minute)
+			return false;
+		if (s1.hour!=s2.hour)
+			return false;
+		if (s1.way!=s2.way)
+			return false;
+		return true;
+	}
 
 	private static String GetMonthNameFromInt(Context c, int month) {
 		switch (month) {

@@ -1,5 +1,6 @@
 package com.ioroiko.howork;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import com.ioroiko.howork.GlobalVars.Way;
 import com.ioroiko.howork.HoWorkContract.DAYS;
@@ -280,6 +281,22 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			
 		return res;
 	}
+	
+	
+	/**
+	 * 
+	 * @param stamp is the stamp you want to remove
+	 * @return true if the stamp can be removed, false otherwise. 
+	 * Only last stamp can be removed(otherwise it results in two consecutive stamps with the same way).
+	 */
+	public boolean CanRemoveStamp(Stamp stamp)
+	{
+		ArrayList<Stamp> stampsOfADay = GetStampsOfDay(stamp.year, stamp.month, stamp.day);
+			if (Utils.StampsAreEqual(stampsOfADay.get(stampsOfADay.size()-1),stamp))
+				return true;
+			return false;
+	}
+
 	
 	
 	public boolean RemoveStamp(Stamp stamp)

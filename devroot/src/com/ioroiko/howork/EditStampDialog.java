@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ public class EditStampDialog extends DialogFragment {
         
         builder.setMessage(String.format("%s: %s",getString(R.string.dialogTitle) , this.diaStamp.getTime()));
         
-        builder.setPositiveButton(getString(R.string.dialogPositive), new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.dialogPositive), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                 	   // User confirms save
                 	   HoWorkSQLHelper helper = new HoWorkSQLHelper(getActivity());
@@ -77,25 +78,38 @@ public class EditStampDialog extends DialogFragment {
                    }
                });
        
-        builder.setNegativeButton(getString(R.string.dialogNegative), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.dialogNegative), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                 	//Remove the stamp!
             	   HoWorkSQLHelper helper = new HoWorkSQLHelper(getActivity());
             	   Stamp delStamp = new Stamp(diaStamp.year,diaStamp.month, diaStamp.day,diaStamp.hour,diaStamp.minute);
             	   delStamp.way = diaStamp.way;
-            	   boolean res = helper.RemoveStamp(delStamp);
-            	   
-            	   if (res)
+            	   boolean res = false;
+            	   ActivityEdit curActivity = (ActivityEdit) getActivity();
+            	   if (helper.CanRemoveStamp(delStamp))
             	   {
-            		   ActivityEdit curActivity = (ActivityEdit) getActivity();
-            		   curActivity.updateStamps();
-            		   Intent updateIntent = new Intent(dialogView.getContext(), MyWidgetProvider.class);
-            		   updateIntent.setAction(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED);
-            		   curActivity.sendBroadcast(updateIntent);
+            		   res = helper.RemoveStamp(delStamp);
+            		   if (res)
+                	   {
+                		   
+                		   curActivity.updateStamps();
+                		   Intent updateIntent = new Intent(dialogView.getContext(), MyWidgetProvider.class);
+                		   updateIntent.setAction(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED);
+                		   curActivity.sendBroadcast(updateIntent);
+                	   }
+                	   else {
+                		   Log.e("onCreateDialog", "Error in removing the Stamp!");
+    				}
             	   }
-            	   else {
-            		   Log.e("onCreateDialog", "Error in removing the Stamp!");
-				}
+            	   else
+            	   {
+            		   Toast.makeText(curActivity,curActivity.getResources().getString(R.string.cantRemove),Toast.LENGTH_SHORT).show();
+            		   Log.d("onCreateDialog", "Cannot remove the stamp! It is not 1st or last!");
+            	   }
+            	   
+            	   
+            	   
+            	   
             	   
             	   
        				
