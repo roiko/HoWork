@@ -21,6 +21,11 @@ public class GlobalVars {
 	// Extra values
 	public static String WAY_IN = "WAY_IN";
 	public static String WAY_OUT = "WAY_OUT";
+	
+	//CSV Export
+	public static String CSVDirName="HoWork";
+	public static String CSVFileName="HoWork - exported stamps.csv";
+		
 
 	public enum WriteStampRes {
 		Ok, DBClosed, GenericError, ExceptionThrown

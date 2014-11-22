@@ -13,6 +13,18 @@ import android.content.res.Resources;
 import android.text.format.Time;
 
 public class Utils {
+	
+	public static ArrayList<Integer> GetDaysOfMonth(Context c, int year, int month)
+	{
+		ArrayList<Integer> days = new ArrayList<Integer>();
+		Calendar calendar = new GregorianCalendar(year, month-1,1);
+		int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		for (int i = 1; i <= maxDay; i++) {
+			days.add(i);
+		}
+		
+		return days;
+	}
 
 	public static Stamp getTodayAsStamp(Context context) {
 		Calendar calendar = Calendar.getInstance();

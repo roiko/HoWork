@@ -14,5 +14,11 @@ public class DayStamp {
 		Stamps = new ArrayList<Stamp>();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getDate()
+	{
+		String date=String.format("%s/%s/%s", Year,Month,Day);
+		return date;
+	}
 
 }
