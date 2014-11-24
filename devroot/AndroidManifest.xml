@@ -3,14 +3,16 @@
     package="com.ioroiko.howork"
     android:versionCode="1"
     android:versionName="1.0" >
-	
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -40,13 +42,17 @@
 
         <activity
             android:name="com.ioroiko.howork.ActivityEdit"
-            android:label="@string/title_activity_activity_edit" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_activity_edit"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.ioroiko.howork.SummaryActivity"
-            android:label="@string/title_activity_summary" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_summary"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ioroiko.howork.SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 

@@ -12,5 +12,6 @@
     <color name="redHoWork">#b03f3f</color>
     <color name="widgetBtnColor">#8C181822</color>
     <color name="widgetBtnColor_D">#8Ce1e1e1</color>
+    <color name="itemSettingsText">#b6b6b6</color>
 
 </resources>

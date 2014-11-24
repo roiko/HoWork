@@ -6,7 +6,10 @@ import com.ioroiko.howork.R;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 	
@@ -22,9 +25,21 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.main, menu);//Rocco: removed for now...
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			Log.d("", "Premuto settings");
+			startActivity(new Intent(this, SettingsActivity.class));
+
+			return true;
+		}
+		return false;
+	}
     
     
     //Finish the activity when user presses Home/Back button

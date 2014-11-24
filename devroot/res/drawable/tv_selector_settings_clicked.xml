@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@color/widgetBtnColor_D" /><!-- background color -->
+   	<stroke android:width="1px" android:color="#ffaeaeae"/><!-- border-->
+
+</shape>

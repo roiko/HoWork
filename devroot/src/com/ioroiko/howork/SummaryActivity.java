@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,8 +52,20 @@ public class SummaryActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.summary, menu); Rocco: removed for now..
+		getMenuInflater().inflate(R.menu.summary, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			Log.d("", "Premuto settings");
+			startActivity(new Intent(this, SettingsActivity.class));
+
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -62,7 +75,7 @@ public class SummaryActivity extends Activity {
 	}
 
 	private void Draw() {
-		Log.i("Draw","Start");
+		Log.i("Draw", "Start");
 		HoWorkSQLHelper helper = new HoWorkSQLHelper(this);
 		ArrayList<Integer> dayList = new ArrayList<Integer>(); // List of day
 																// numbers which
@@ -81,7 +94,7 @@ public class SummaryActivity extends Activity {
 			listView.setAdapter(summaryAdapter);
 		}
 		// ========================================================
-		Log.i("Draw","End");
+		Log.i("Draw", "End");
 	}
 
 	public void PrevClick(View v) {
@@ -105,7 +118,7 @@ public class SummaryActivity extends Activity {
 	}
 
 	public void ExportCSV(View v) {
-		Log.i("ExportCSV","Start");
+		Log.i("ExportCSV", "Start");
 		pDialog = CreateProgressDialog(v.getContext());
 		AsyncTaskCreateCSV myTask = new AsyncTaskCreateCSV();
 		myTask.execute(null, null, null);
@@ -119,8 +132,6 @@ public class SummaryActivity extends Activity {
 		pd.setProgress(0);
 		return pd;
 	}
-
-
 
 	private class AsyncTaskCreateCSV extends AsyncTask<Void, Integer, Void> {
 
@@ -171,14 +182,15 @@ public class SummaryActivity extends Activity {
 		public void WriteCSVFile(Context c) {
 			String method = "WriteCSVFile";
 			Log.i(method, "Start");
-			
-			int percTotHeader=20;//20% is prepare arraylists of this month
-			int percTotFileWrite=100-percTotHeader;
+
+			int percTotHeader = 20;// 20% is prepare arraylists of this month
+			int percTotFileWrite = 100 - percTotHeader;
 			FileOutputStream fos;
 			String header = "Data;IN;OUT;IN;OUT;IN;OUT;IN;OUT\n";
 			try {
 				File dir = new File(Environment.getExternalStorageDirectory()
-						+ File.separator + GlobalVars.CSVDirName + File.separator);
+						+ File.separator + GlobalVars.CSVDirName
+						+ File.separator);
 				if (!dir.exists())
 					dir.mkdirs();
 				File file = new File(dir, GlobalVars.CSVFileName);
@@ -205,7 +217,8 @@ public class SummaryActivity extends Activity {
 				int iPerc = 0;
 				for (Integer day : days) {
 					pos++;
-					float fPerc = (float) pos / (float) total * percTotFileWrite;
+					float fPerc = (float) pos / (float) total
+							* percTotFileWrite;
 					iPerc = (int) fPerc;
 
 					boolean isDayPresent = false;
@@ -215,8 +228,8 @@ public class SummaryActivity extends Activity {
 							break;
 						if (day.equals(dayStamp.Day)) {
 
-								Log.d(method, "Reading stamps of day "
-										+ dayStamp.Day);
+							Log.d(method, "Reading stamps of day "
+									+ dayStamp.Day);
 
 							// Write stamps to file
 							sb.append(dayStamp.getDate());
@@ -230,11 +243,13 @@ public class SummaryActivity extends Activity {
 						}
 					}
 
-					if (!isDayPresent)// Here the stamps do not contain this day: Add an empty line to CSV
+					if (!isDayPresent)// Here the stamps do not contain this
+										// day: Add an empty line to CSV
 						sb.append(String.format("%s/%s/%s\n", year, month, day));
 
-					osw.write(sb.toString());// Finally, write the stamps of this day
-					publishProgress(iPerc+percTotHeader);
+					osw.write(sb.toString());// Finally, write the stamps of
+												// this day
+					publishProgress(iPerc + percTotHeader);
 
 				}
 				// ========================
@@ -244,30 +259,33 @@ public class SummaryActivity extends Activity {
 				Log.e(method, e.getMessage());
 				// TODO: handle exception
 			}
-			
+
 			Log.i(method, "End");
 		}
-		
+
 		private void Share() {
 			String method = "Share";
-			Log.i(method,"Start");
+			Log.i(method, "Start");
 			Log.d("Share!", "Start sharing!");
-			File dir = new File(Environment.getExternalStorageDirectory() + File.separator + GlobalVars.CSVDirName + File.separator);
-	    	File file = new File(dir, GlobalVars.CSVFileName);
-	    	//Share content!
-	        Intent intent = new Intent();
-	        intent.setAction(Intent.ACTION_SEND);
-	        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-	        intent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.mailExportCSVSubject));//Testo della mail
-	        intent.putExtra(android.content.Intent.EXTRA_TITLE, "EXTRA_TITLE");//Non usato?!
-	        intent.putExtra(android.content.Intent.EXTRA_SUBJECT,GlobalVars.CSVFileName); //Titolo della mail e del file
-	        intent.setType("text/csv");
-	        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-	        startActivity(Intent.createChooser(intent,""));
-	        Log.i(method,"End");
+			File dir = new File(Environment.getExternalStorageDirectory()
+					+ File.separator + GlobalVars.CSVDirName + File.separator);
+			File file = new File(dir, GlobalVars.CSVFileName);
+			// Share content!
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_SEND);
+			intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+			intent.putExtra(android.content.Intent.EXTRA_TEXT, getResources()
+					.getString(R.string.mailExportCSVSubject));// Testo della
+																// mail
+			intent.putExtra(android.content.Intent.EXTRA_TITLE, "EXTRA_TITLE");// Non
+																				// usato?!
+			intent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+					GlobalVars.CSVFileName); // Titolo della mail e del file
+			intent.setType("text/csv");
+			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			startActivity(Intent.createChooser(intent, ""));
+			Log.i(method, "End");
 		}
-		
-		
 
 	}
 

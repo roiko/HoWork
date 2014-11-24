@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="10dp"
+    android:background="@color/darkGreyHoWork"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+    <TextView
+            android:id="@+id/tvLunchBreak"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/tv_settings"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/lunchBreak"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            android:textColor="@color/itemSettingsText"/>
+	<TextView
+            android:id="@+id/tvLunchBreakVal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/tv_settings"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="ShowLunchTime"
+            android:padding="15dp"
+            android:text="00:00"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            android:textColor="@color/itemSettingsText"/>
+    </LinearLayout>
+    <!-- separator TextView-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightGreyHoWork"
+        android:padding="0dp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvTariff"
+            android:layout_width="0dp"
+            android:background="@drawable/tv_settings"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="15dp"
+            android:text="@string/tariff"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            android:textColor="@color/itemSettingsText"/>
+
+        <EditText
+            android:id="@+id/etTariff"
+            android:layout_width="0dp"
+            android:background="@drawable/tv_settings"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="20"
+            android:inputType="numberDecimal"
+            android:padding="16dp"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/itemSettingsText" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <!-- separator TextView-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightGreyHoWork"
+        android:padding="0dp" />
+
+</LinearLayout>

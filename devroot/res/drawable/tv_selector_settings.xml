@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item> 
+    <shape android:shape="rectangle">
+      <solid android:color="#000000" /> 
+    </shape>
+  </item>   
+    <item android:bottom="0dp" android:top="0dp" android:left="0dp" android:right="0dp" >  <!-- set bottom if you want border on bottom, left if you want on the left and so son... -->>
+     <shape android:shape="rectangle"> 
+      <solid android:color="#232323" />
+    </shape>
+   </item>    
+ </layer-list> 

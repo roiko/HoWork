@@ -7,7 +7,9 @@ import com.ioroiko.howork.CustomAdapter.CustomListArrayAdapter;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,8 +47,20 @@ public class ActivityEdit extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.activity_edit, menu); Rocco: removed for now..
+		getMenuInflater().inflate(R.menu.activity_edit, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			Log.d("", "Premuto settings");
+			startActivity(new Intent(this, SettingsActivity.class));
+
+			return true;
+		}
+		return false;
 	}
 	
 	//Finish the activity when user presses Back/Home button

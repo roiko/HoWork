@@ -25,6 +25,11 @@ public class GlobalVars {
 	//CSV Export
 	public static String CSVDirName="HoWork";
 	public static String CSVFileName="HoWork - exported stamps.csv";
+	
+	//Shared Preferences
+	public static String SHARED_PREFERENCES_HOWORK = "com.ioroiko.HoWork.SharedPreferences";
+	public static String LUNCH_TIME = "LUNCH_TIME"; //How long lunch break lasts
+	public static String TARIFF = "TARIFF";	//Money per hour
 		
 
 	public enum WriteStampRes {
