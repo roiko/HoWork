@@ -186,7 +186,11 @@ public class SummaryActivity extends Activity {
 			int percTotHeader = 20;// 20% is prepare arraylists of this month
 			int percTotFileWrite = 100 - percTotHeader;
 			FileOutputStream fos;
-			String header = "Data;IN;OUT;IN;OUT;IN;OUT;IN;OUT\n";
+			
+			String lunchBreak = getSharedPreferences(GlobalVars.SHARED_PREFERENCES_HOWORK, Context.MODE_PRIVATE).getString(GlobalVars.LUNCH_TIME, "00:00");
+			String diffTimeS="00:00";
+			long diffTime=0;
+			String header = "Data;IN;OUT;IN;OUT;IN;OUT;IN;OUT;Total\n";
 			try {
 				File dir = new File(Environment.getExternalStorageDirectory()
 						+ File.separator + GlobalVars.CSVDirName
@@ -233,20 +237,53 @@ public class SummaryActivity extends Activity {
 
 							// Write stamps to file
 							sb.append(dayStamp.getDate());
+							diffTime = 0;
+							diffTimeS="00:00";
+							long timeIN=0;
+							long timeOUT=0;
+							int printed = 0; //max 8 IN and OUT (4 IN and 4 OUT)
 							for (Stamp stamp : dayStamp.Stamps) {
+								
+								if (stamp.way.toString().equals(GlobalVars.Way.IN.toString()))
+								{
+									timeIN = Utils.TimeToLong(stamp.getTime());
+								}
+								
+								if (stamp.way.toString().equals(GlobalVars.Way.OUT.toString()))
+								{
+									timeOUT = Utils.TimeToLong(stamp.getTime());
+									diffTime = diffTime + (timeOUT-timeIN); 
+								}
+								
 								sb.append(String.format(";%s", stamp.getTime()));
+								printed++;
+							}
+							
+							while (printed<8)
+							{
+								sb.append(";");
+								printed++;
 							}
 
-							sb.append("\n");
+							
 							isDayPresent = true;
 							break;
 						}
 					}
 
-					if (!isDayPresent)// Here the stamps do not contain this
-										// day: Add an empty line to CSV
+					if (!isDayPresent)// Here the stamps do not contain this day: Add an empty line to CSV
 						sb.append(String.format("%s/%s/%s\n", year, month, day));
+					else
+					{
+						diffTime = diffTime - Utils.TimeToLong(lunchBreak);
+						diffTimeS= Utils.LongToTime(diffTime);
+						Log.d("","Lavorate ore: " + diffTimeS);
+						sb.append(";"+diffTimeS);
 
+						sb.append("\n");
+					}
+					
+					
 					osw.write(sb.toString());// Finally, write the stamps of
 												// this day
 					publishProgress(iPerc + percTotHeader);

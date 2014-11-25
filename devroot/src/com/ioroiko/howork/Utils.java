@@ -11,6 +11,7 @@ import com.ioroiko.howork.SummaryAdapter.DayStamp;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.Time;
+import android.util.Log;
 
 public class Utils {
 	
@@ -166,6 +167,51 @@ public class Utils {
 			return "";
 		}
 
+	}
+	
+	
+	/**
+	 * 
+	 * @param time a time written as HH:mm
+	 * @return a long (representing minutes)
+	 */
+	public static long TimeToLong(String time)
+	{
+		long longTime = 0;
+		try{
+		long hours = Long.parseLong(time.split(":")[0]) * 60;
+		long minutes = Long.parseLong(time.split(":")[1]);
+		longTime = hours + minutes;
+		}
+		catch (Exception e)
+		{
+			Log.e("TimeToLong", "exception in try to convert a time HH:mm to long! " + e.getMessage());
+		}
+		
+		return longTime;
+	}
+	
+	/**
+	 * 
+	 * @param time a time as minutes
+	 * @return a string representing time written as HH:mm
+	 */
+	public static String LongToTime(long time)
+	{
+		String sTime="00:00";
+		try{
+			long hours = (int)(time / 60);
+			String sHours =  String.format("%02d",hours);
+			long minutes = time - hours*60;
+			String sMin = String.format("%02d", minutes);
+			sTime=String.format("%s:%s", sHours, sMin);
+		}
+		catch (Exception e)
+		{
+			Log.e("TimeToLong", "exception in try to convert a time HH:mm to long! " + e.getMessage());
+		}
+		
+		return sTime;
 	}
 
 }
