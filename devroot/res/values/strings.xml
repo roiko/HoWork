@@ -24,11 +24,11 @@
 	
 
     <!-- DialogEdit -->
-    <string name="dialogTitle">Edit stamp</string>
+    <string name="dialogTitle">Edit clock</string>
     <string name="dialogPositive">Update</string>
     <string name="dialogNegative">Remove</string>
     <string name="dialogNeutral">Cancel</string>
-    <string name="cantRemove">Only last stamp can be removed!</string>
+    <string name="cantRemove">Only last clock can be removed!</string>
     
     <!-- DialogLunch -->
     <string name="dialogLunchOk">Ok</string>

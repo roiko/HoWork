@@ -23,14 +23,14 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
 
-		Toast.makeText(context, "OnUpdate!", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(context, "OnUpdate!", Toast.LENGTH_SHORT).show();
 		RefreshTodayStamps(context);
 		Init(context, appWidgetManager, appWidgetIds);
 	}
 
 	@Override
 	public void onEnabled(Context context) {
-		Toast.makeText(context, "OnEnabled!", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(context, "OnEnabled!", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
