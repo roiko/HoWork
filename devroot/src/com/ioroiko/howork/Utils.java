@@ -9,7 +9,6 @@ import java.util.List;
 import com.ioroiko.howork.SummaryAdapter.DayStamp;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.text.format.Time;
 import android.util.Log;
 

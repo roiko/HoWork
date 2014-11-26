@@ -46,21 +46,19 @@ public class MyWidgetProvider extends AppWidgetProvider {
 					|| (intent.getAction().equals(GlobalVars.BTN_REFRESH_CLICK))) {
 				// Service has stored the timestamp. Then it raised the intent
 				// to update all widgets IN/OUT items
-				Toast.makeText(context, "Updating widget UI...",
+				Toast.makeText(context, context.getString(R.string.updatingUI),
 						Toast.LENGTH_SHORT).show();
 				RefreshTodayStamps(context);
-				Toast.makeText(context, "UI updated!", Toast.LENGTH_SHORT)
-						.show();
+				//Toast.makeText(context, "UI updated!", Toast.LENGTH_SHORT).show();
 
 			}
 
 		} catch (Exception ex) {
 			Log.e("MyWidgetProvider",
 					"[onReceive] Exception: " + ex.getMessage());
-			Toast.makeText(context, "Eccezione: " + ex.getMessage(),
-					Toast.LENGTH_SHORT).show();
+			//Toast.makeText(context, "Eccezione: " + ex.getMessage(),Toast.LENGTH_SHORT).show();
 		}
-		// else if
+
 	}
 
 	private boolean Init(Context c, AppWidgetManager appWidgetManager,
@@ -73,9 +71,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			RemoteViews rViews = new RemoteViews(c.getPackageName(),
 					R.layout.widget);
 
-			String currentDateTimeString = DateFormat.getDateInstance().format(
-					new Date());
-			rViews.setTextViewText(R.id.tvWToday, currentDateTimeString);
+			
 
 			// Btn IN
 			Intent intentIN = new Intent(c, WidgetService.class);
@@ -136,11 +132,13 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		// Retrieve list of stamps for today
 		Stamp today = Utils.getTodayAsStamp(c);
 		ArrayList<Stamp> stampsOfToday = new ArrayList<Stamp>();
+		String currentDateTimeString = DateFormat.getDateInstance().format(
+				new Date());
+		
 
 		_wDBHelper = new HoWorkSQLHelper(c);
 		stampsOfToday = _wDBHelper.GetStampsOfDay(today.year, today.month,
-				today.day);// Dovrei usare il service per fare una cosa
-							// pulita...
+				today.day);
 
 		// Loop for all widgets
 		ComponentName providerName = new ComponentName(c,
@@ -153,6 +151,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			// Always use remoteView for widget!
 			RemoteViews rViews = new RemoteViews(c.getPackageName(),
 					R.layout.widget);
+			rViews.setTextViewText(R.id.tvWToday, currentDateTimeString);
 			ClearTodayStamps(c, rViews, providerName);
 			for (int i = 0; i < stampsOfToday.size(); i++) {
 				switch (i) // Every index update a textView IN/OUT

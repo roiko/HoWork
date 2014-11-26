@@ -1,18 +1,13 @@
 package com.ioroiko.howork;
 
-import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,7 +116,7 @@ public class EditStampDialog extends DialogFragment {
 											R.string.cantRemove),
 									Toast.LENGTH_SHORT).show();
 							Log.d("onCreateDialog",
-									"Cannot remove the stamp! It is not 1st or last!");
+									"Cannot remove the stamp! It is not first or last!");
 						}
 					}
 				});

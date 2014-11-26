@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 public class LunchBreakDialog extends DialogFragment {
 
@@ -55,7 +53,7 @@ public class LunchBreakDialog extends DialogFragment {
 		builder.setView(dialogView);
 		builder.setMessage(getString(R.string.lunchBreakDialogTitle));
 		
-		builder.setNegativeButton(getResources().getString(R.string.dialogPositive), new DialogInterface.OnClickListener() {
+		builder.setNegativeButton(getResources().getString(R.string.dialogLunchOk), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -70,7 +68,7 @@ public class LunchBreakDialog extends DialogFragment {
 			}
 		});
 		
-		builder.setPositiveButton(getResources().getString(R.string.dialogNeutral), new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(getResources().getString(R.string.dialogLunchCancel), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

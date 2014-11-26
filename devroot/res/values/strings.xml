@@ -3,6 +3,7 @@
 
     <string name="installedMsg">App installed successfully! \n\nCopy the widget to home screen!</string>
     <string name="app_name">HoWork</string>
+    <string name="updatingUI">Updating widget UI...</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_activity_edit">Edit Day</string>
     <string name="title_activity_summary">SummaryActivity</string>
@@ -19,6 +20,7 @@
     <string name="tariffPerHour">Tariff (per hour)</string>
     
     
+    
 	
 
     <!-- DialogEdit -->
@@ -27,6 +29,11 @@
     <string name="dialogNegative">Remove</string>
     <string name="dialogNeutral">Cancel</string>
     <string name="cantRemove">Only last stamp can be removed!</string>
+    
+    <!-- DialogLunch -->
+    <string name="dialogLunchOk">Ok</string>
+    <string name="dialogLunchCancel">Cancel</string>
+    
     <string name="SU">Sunday</string>
     <string name="MO">Monday</string>
     <string name="TU">Tuesday</string>
@@ -46,5 +53,8 @@
     <string name="OCT">October</string>
     <string name="NOV">November</string>
     <string name="DEC">December</string>
+    
+
+    
 
 </resources>

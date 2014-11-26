@@ -1,6 +1,5 @@
 package com.ioroiko.howork;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import com.ioroiko.howork.GlobalVars.Way;
 import com.ioroiko.howork.HoWorkContract.DAYS;
@@ -80,16 +79,6 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 				+ DAYS.CN_DAY + "=?";
 
 		Cursor cursor = db.rawQuery(rawQuery, selArgs);
-		/*
-		 * String[] columns = new String[]{DAYS.CN_YEAR, DAYS.CN_MONTH,
-		 * DAYS.CN_DAY}; String where = DAYS.CN_YEAR+" =? AND " + DAYS.CN_MONTH
-		 * +"=? AND "+ DAYS.CN_DAY +"=?"; String[] selArgs = new
-		 * String[]{String.valueOf(year), String.valueOf(month),
-		 * String.valueOf(day)}; String orderBy = DAYS.CN_YEAR +","+
-		 * DAYS.CN_MONTH+","+ DAYS.CN_DAY; db.query(true,
-		 * DAYS.TABLE_NAME,columns, DAYS.CN_YEAR , selArgs, null, null, orderBy,
-		 * null, null);
-		 */
 
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
@@ -113,9 +102,6 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 		String method = "StampExist";
 		int stampID = -1;
 		SQLiteDatabase db = this.getReadableDatabase();
-		String[] cols = new String[]{STAMPS._ID}; 
-		//String sel = String.format("%s=? AND %s=? AND %s=?", STAMPS.CN_DAY_ID);
-		//String[] selArgs = new String[] { String.valueOf(year),String.valueOf(month), String.valueOf(day) };
 
 		String select = String.format("SELECT %s.%s", STAMPS.TABLE_NAME, STAMPS._ID);
 		String from = String.format(" FROM %s JOIN %s ON %s.%s=%s.%s", STAMPS.TABLE_NAME, DAYS.TABLE_NAME, STAMPS.TABLE_NAME,STAMPS.CN_DAY_ID,DAYS.TABLE_NAME,DAYS._ID);
@@ -125,16 +111,6 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 	
 		Cursor cursor = db.rawQuery(rawQuery, selArgs);
 
-		/*
-		 * String[] columns = new String[]{DAYS.CN_YEAR, DAYS.CN_MONTH,
-		 * DAYS.CN_DAY}; String where = DAYS.CN_YEAR+" =? AND " + DAYS.CN_MONTH
-		 * +"=? AND "+ DAYS.CN_DAY +"=?"; String[] selArgs = new
-		 * String[]{String.valueOf(year), String.valueOf(month),
-		 * String.valueOf(day)}; String orderBy = DAYS.CN_YEAR +","+
-		 * DAYS.CN_MONTH+","+ DAYS.CN_DAY; db.query(true,
-		 * DAYS.TABLE_NAME,columns, DAYS.CN_YEAR , selArgs, null, null, orderBy,
-		 * null, null);
-		 */
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			stampID = cursor.getInt(cursor.getColumnIndex(DAYS._ID));

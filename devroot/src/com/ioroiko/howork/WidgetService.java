@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Handler;
-import android.provider.Settings.Global;
 import android.util.Log;
 import android.widget.Toast;
 

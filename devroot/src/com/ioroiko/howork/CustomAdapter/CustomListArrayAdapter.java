@@ -3,18 +3,14 @@ package com.ioroiko.howork.CustomAdapter;
 import java.util.List;
 
 import com.ioroiko.howork.GlobalVars;
-import com.ioroiko.howork.GlobalVars.Way;
 import com.ioroiko.howork.R;
 import com.ioroiko.howork.Stamp;
-import com.ioroiko.howork.Utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class CustomListArrayAdapter extends ArrayAdapter {
 
@@ -61,9 +57,6 @@ public class CustomListArrayAdapter extends ArrayAdapter {
 	
 	
 	private static class ViewHolder{
-		TextView tvWay;
-		Button btnEdit;
-		Button btnDel;
 		CustomView cvStamp;
 	}
 	
@@ -76,10 +69,7 @@ public class CustomListArrayAdapter extends ArrayAdapter {
 		{
 			convertView = inflater.inflate(R.layout.custom_list_ltem, parent, false);//Una singola riga Stamp+bottoni
 			mycustomView = new ViewHolder();
-			//mycustomView.tvWay = (TextView) convertView.findViewById(R.id.tvCIWay);
 			mycustomView.cvStamp = (CustomView) convertView.findViewById(R.id.tvCIStamp);
-			//mycustomView.btnEdit = (Button) convertView.findViewById(R.id.btnCIEdit);
-			//mycustomView.btnDel = (Button) convertView.findViewById(R.id.btnCIDel);
 			convertView.setTag(mycustomView);
 		}
 		else
@@ -87,7 +77,6 @@ public class CustomListArrayAdapter extends ArrayAdapter {
 			mycustomView = (ViewHolder) convertView.getTag(); //riuso inflate precedente (best practice)
 		}
 		
-		//mycustomView.tvWay.setText(stamp.way.toString());
 		String text = String.format("%s\t\t%s", stamp.getTime(),stamp.way.toString());
 		mycustomView.cvStamp.setText(text);
 		mycustomView.cvStamp.stamp = stamp;

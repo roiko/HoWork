@@ -5,6 +5,7 @@
 
     <string name="app_name">HoWork</string>
     <string name="action_settings">Impostazioni</string>
+    <string name="updatingUI">Aggiornando UI...</string>
     <string name="title_activity_activity_edit">Modifica giorno</string>
     <string name="title_activity_summary">Riassunto mensile</string>
     <string name="title_activity_settings">Impostazioni</string>
@@ -25,6 +26,10 @@
     <string name="dialogNegative">Elimina</string>
     <string name="dialogNeutral">Annulla</string>
     <string name="cantRemove">Solo l\'ultima timbratura può essere rimossa!</string>
+    
+    <!-- DialogLunch -->
+    <string name="dialogLunchOk">Ok</string>
+    <string name="dialogLunchCancel">Cancel</string>
     
     <string name="SU">Domenica</string>
     <string name="MO">Lunedì</string>

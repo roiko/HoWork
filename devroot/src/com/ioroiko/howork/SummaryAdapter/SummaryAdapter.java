@@ -1,6 +1,5 @@
 package com.ioroiko.howork.SummaryAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ioroiko.howork.ActivityEdit;
@@ -9,10 +8,8 @@ import com.ioroiko.howork.R;
 import com.ioroiko.howork.Stamp;
 import com.ioroiko.howork.Utils;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.sax.StartElementListener;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -69,8 +66,6 @@ public class SummaryAdapter extends ArrayAdapter<DayStamp> {
 	        
 	        final DayStamp dayStamp = getItem(position);
 	        tvDate.setText(String.format("%s/%s/%s - %s", dayStamp.Day, dayStamp.Month, dayStamp.Year, Utils.GetDayNameFromDate(convertView.getContext(), dayStamp.Day, dayStamp.Month,dayStamp.Year)));
-	        String sStamps = "";
-	       // ArrayList<Spannable> spannables = new ArrayList<Spannable>();
 	        
 	        for (Stamp stamp : dayStamp.Stamps) {
 	        	
@@ -79,11 +74,8 @@ public class SummaryAdapter extends ArrayAdapter<DayStamp> {
 	        	tempSpannable.setSpan(new ForegroundColorSpan(convertView.getResources().getColor(R.color.greenHoWork)), 0, tempSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 	        	else
 	        		tempSpannable.setSpan(new ForegroundColorSpan(convertView.getResources().getColor(R.color.redHoWork)), 0, tempSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);	
-	        	//spannables.add(tempSpannable);
 	        	tvStamps.append(tempSpannable);
-				//sStamps +=  String.format(" %s\t\t %s\n", stamp.getTime(),stamp.way.toString());
-				
-				
+
 			}
 	        
 	        tvStamps.setOnClickListener(new OnClickListener() {
@@ -100,7 +92,6 @@ public class SummaryAdapter extends ArrayAdapter<DayStamp> {
 				}
 			});
 
-	        //tvStamps.setText(sStamps);
 	        return convertView;
 	
 	}
