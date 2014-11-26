@@ -10,9 +10,14 @@
     <string name="title_activity_settings">Impostazioni</string>
     <string name="exporting_csv">Sto creando file CSV</string>
     <string name="mailExportCSVSubject">CSV esportato da HoWork</string>
-    <string name="lunchBreak">Pausa pranzo:</string>
+    <string name="lunchBreak">Pausa pranzo</string>
     <string name="lunchBreakDialogTitle">Imposta la durata della pausa pranzo (hh:mm)</string>
-    <string name="tariff">Tariffa (all\'ora):</string>
+    <string name="tariff">Tariffa (all\'ora)</string>
+    <string name="date">Data</string>
+    <string name="totalWorkTime">Tempo di lavoro totale</string>
+    <string name="reward">Compenso</string>
+    <string name="lunchBreakHHmm">Pausa pranzo (HH:mm)</string>
+    <string name="tariffPerHour">Tariffa (all\'ora)</string>
 
     <!-- DialogEdit -->
     <string name="dialogTitle">Modifica timbratura</string>

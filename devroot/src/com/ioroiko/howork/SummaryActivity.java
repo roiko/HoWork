@@ -190,7 +190,10 @@ public class SummaryActivity extends Activity {
 			String lunchBreak = getSharedPreferences(GlobalVars.SHARED_PREFERENCES_HOWORK, Context.MODE_PRIVATE).getString(GlobalVars.LUNCH_TIME, "00:00");
 			String diffTimeS="00:00";
 			long diffTime=0;
-			String header = "Data;IN;OUT;IN;OUT;IN;OUT;IN;OUT;Total\n";
+			float tariff = 0;
+			tariff = getSharedPreferences(GlobalVars.SHARED_PREFERENCES_HOWORK, Context.MODE_PRIVATE).getFloat(GlobalVars.TARIFF, 0);
+			
+			String header = String.format("%s;IN;OUT;IN;OUT;IN;OUT;IN;OUT;%s;%s\n",getString(R.string.date),getString(R.string.totalWorkTime),getString(R.string.reward));
 			try {
 				File dir = new File(Environment.getExternalStorageDirectory()
 						+ File.separator + GlobalVars.CSVDirName
@@ -246,12 +249,12 @@ public class SummaryActivity extends Activity {
 								
 								if (stamp.way.toString().equals(GlobalVars.Way.IN.toString()))
 								{
-									timeIN = Utils.TimeToLong(stamp.getTime());
+									timeIN = Utils.TimeToLongAsMinutes(stamp.getTime());
 								}
 								
 								if (stamp.way.toString().equals(GlobalVars.Way.OUT.toString()))
 								{
-									timeOUT = Utils.TimeToLong(stamp.getTime());
+									timeOUT = Utils.TimeToLongAsMinutes(stamp.getTime());
 									diffTime = diffTime + (timeOUT-timeIN); 
 								}
 								
@@ -274,12 +277,18 @@ public class SummaryActivity extends Activity {
 					if (!isDayPresent)// Here the stamps do not contain this day: Add an empty line to CSV
 						sb.append(String.format("%s/%s/%s\n", year, month, day));
 					else
-					{
-						diffTime = diffTime - Utils.TimeToLong(lunchBreak);
+					{	//Write here total of the current day (time + amount)
+						
+						diffTime = diffTime - Utils.TimeToLongAsMinutes(lunchBreak);
 						diffTimeS= Utils.LongToTime(diffTime);
-						Log.d("","Lavorate ore: " + diffTimeS);
+						Log.d("","Total working time: " + diffTimeS);
+						float amount = tariff * Utils.TimeToLongAsHours(diffTimeS);
+						String sAmount = String.format("%.02f", amount); 
+						Log.d("",String.format("Today reward: ", sAmount));
 						sb.append(";"+diffTimeS);
-
+						sb.append(";"+sAmount);
+						
+						//End line
 						sb.append("\n");
 					}
 					
@@ -291,6 +300,11 @@ public class SummaryActivity extends Activity {
 				}
 				// ========================
 
+				//Extra info (lunch break and tariff values)
+				osw.write("\n\n");
+				osw.write(String.format("%s; %s\n", getString(R.string.lunchBreakHHmm),lunchBreak));
+				osw.write(String.format("%s;%s\n", getString(R.string.tariffPerHour), String.valueOf(tariff)));
+				
 				osw.close();
 			} catch (Exception e) {
 				Log.e(method, e.getMessage());

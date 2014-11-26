@@ -175,7 +175,7 @@ public class Utils {
 	 * @param time a time written as HH:mm
 	 * @return a long (representing minutes)
 	 */
-	public static long TimeToLong(String time)
+	public static long TimeToLongAsMinutes(String time)
 	{
 		long longTime = 0;
 		try{
@@ -185,7 +185,24 @@ public class Utils {
 		}
 		catch (Exception e)
 		{
-			Log.e("TimeToLong", "exception in try to convert a time HH:mm to long! " + e.getMessage());
+			Log.e("TimeToLongAsMinutes", "exception in try to convert a time HH:mm to long! " + e.getMessage());
+		}
+		
+		return longTime;
+	}
+	
+	
+	public static float TimeToLongAsHours(String time)
+	{
+		float longTime = 0;
+		try{
+		float hours = Float.parseFloat(time.split(":")[0]);
+		float minutes = Float.parseFloat(time.split(":")[1]) / 60;
+		longTime = hours + minutes;
+		}
+		catch (Exception e)
+		{
+			Log.e("TimeToLongAsHours", "exception in try to convert a time HH:mm to float! " + e.getMessage());
 		}
 		
 		return longTime;
