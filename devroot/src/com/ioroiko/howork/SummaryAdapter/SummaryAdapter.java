@@ -67,15 +67,22 @@ public class SummaryAdapter extends ArrayAdapter<DayStamp> {
 	        final DayStamp dayStamp = getItem(position);
 	        tvDate.setText(String.format("%s/%s/%s - %s", dayStamp.Day, dayStamp.Month, dayStamp.Year, Utils.GetDayNameFromDate(convertView.getContext(), dayStamp.Day, dayStamp.Month,dayStamp.Year)));
 	        
+	        int pos=0;
 	        for (Stamp stamp : dayStamp.Stamps) {
 	        	
-	        	Spannable tempSpannable = new SpannableString(stamp.getTime()+"\n");
+	        	Spannable tempSpannable;
+	        	if (pos<dayStamp.Stamps.size()-1)
+	        		tempSpannable = new SpannableString(stamp.getTime()+"\n");
+	        	else
+	        		tempSpannable = new SpannableString(stamp.getTime()); //last one do not have to add an useless "\n"
+	        		
+	        	
 	        	if (stamp.way.toString().equals(GlobalVars.Way.IN.toString()))
 	        	tempSpannable.setSpan(new ForegroundColorSpan(convertView.getResources().getColor(R.color.greenHoWork)), 0, tempSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 	        	else
 	        		tempSpannable.setSpan(new ForegroundColorSpan(convertView.getResources().getColor(R.color.redHoWork)), 0, tempSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);	
 	        	tvStamps.append(tempSpannable);
-
+	        	pos++;
 			}
 	        
 	        tvStamps.setOnClickListener(new OnClickListener() {
