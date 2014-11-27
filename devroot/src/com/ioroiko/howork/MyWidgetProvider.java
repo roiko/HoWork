@@ -70,7 +70,8 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			// Retrieve the widget layout
 			RemoteViews rViews = new RemoteViews(c.getPackageName(),
 					R.layout.widget);
-
+			String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
+			rViews.setTextViewText(R.id.tvWToday, currentDateTimeString);
 			
 
 			// Btn IN
