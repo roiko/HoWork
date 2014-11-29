@@ -86,6 +86,8 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			Log.d("HoWorkSQLHelper", "[DayExist] Day found with _ID = "
 					+ id_Day);
 		}
+		
+		cursor.close();
 		return id_Day;
 
 	}
@@ -116,6 +118,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			stampID = cursor.getInt(cursor.getColumnIndex(DAYS._ID));
 			Log.d(method, "Stamp found with _ID = " + stampID);
 		}
+		cursor.close();
 		return stampID;
 	}
 
@@ -211,7 +214,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 					
 				} while (loop);
 			}
-
+			cur.close();
 		}
 
 		return stamps;
@@ -346,6 +349,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 				daysList.add(day);
 			cursor.moveToNext();
 		}
+		cursor.close();
 		
 		return stamps;
 		
