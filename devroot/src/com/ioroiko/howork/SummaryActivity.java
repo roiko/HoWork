@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SummaryActivity extends Activity {
 
@@ -29,6 +31,7 @@ public class SummaryActivity extends Activity {
 	ProgressDialog pDialog;
 	boolean tStop = false;
 	Thread tExport;
+	Handler tHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -135,9 +138,11 @@ public class SummaryActivity extends Activity {
 
 	private class AsyncTaskCreateCSV extends AsyncTask<Void, Integer, Void> {
 
+		boolean canShare=false;
 		@Override
 		protected void onPreExecute() {
 			try {
+				tHandler = new Handler();
 				Log.d("AsyncTaskCreateCSV", "onPreExecute");
 				pDialog.setProgress(0);
 				pDialog.show();
@@ -155,8 +160,23 @@ public class SummaryActivity extends Activity {
 		protected Void doInBackground(Void... params) {
 			Log.d("AsyncTaskCreateCSV", "doInBackground");
 			// TODO Auto-generated method stub
-
-			WriteCSVFile(getBaseContext());
+			String extState = Environment.getExternalStorageState();
+			if (extState.equals(Environment.MEDIA_MOUNTED))
+			{
+				WriteCSVFile(getBaseContext());
+				canShare=true;
+			}
+			else {
+				tHandler.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						Toast.makeText(getApplicationContext(), "Cannot write to storage", Toast.LENGTH_SHORT).show();
+					}
+				});
+				
+			}
 			return null;
 		}
 
@@ -176,7 +196,8 @@ public class SummaryActivity extends Activity {
 		protected void onPostExecute(Void param) {
 			Log.d("AsyncTaskCreateCSV", "onPostExecute");
 			pDialog.hide();
-			Share();
+			if (canShare)
+				Share();
 		}
 
 		public void WriteCSVFile(Context c) {
@@ -194,6 +215,7 @@ public class SummaryActivity extends Activity {
 			tariff = getSharedPreferences(GlobalVars.SHARED_PREFERENCES_HOWORK, Context.MODE_PRIVATE).getFloat(GlobalVars.TARIFF, 0);
 			
 			String header = String.format("%s;IN;OUT;IN;OUT;IN;OUT;IN;OUT;%s;%s\n",getString(R.string.date),getString(R.string.totalWorkTime),getString(R.string.reward));
+			
 			try {
 				File dir = new File(Environment.getExternalStorageDirectory()
 						+ File.separator + GlobalVars.CSVDirName
