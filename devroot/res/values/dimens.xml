@@ -14,6 +14,8 @@
     <color name="widgetBtnColor_D">#8Ce1e1e1</color>
     <color name="itemSettingsText">#b6b6b6</color>
     
-    <dimen name="widgetINOUTSmall">11sp</dimen>
+    <dimen name="widgetINOUTldpi">11sp</dimen><!-- ldpi e mdpi fino a  -->
+    <dimen name="widgetINOUTmdpi">11sp</dimen>
+    <dimen name="widgetINOUThdpi">13sp</dimen><!-- (480x800), (720x1280), HTC One S (960 x 540)-->
 
 </resources>

@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/darkGreyHoWork"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp" >
+
+        <ImageButton
+            android:id="@+id/btnMonthPrev"
+            style="@style/btnWidgetStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_selector_widget"
+            android:contentDescription="Prec"
+            android:onClick="PrevClick"
+            android:src="@drawable/prev" />
+
+        <!-- this LinearLayout only for center text -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/tvSummaryMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:text="suca"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#1cb0e7"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnMonthNext"
+            style="@style/btnWidgetStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_selector_widget"
+            android:contentDescription="Next"
+            android:onClick="NextClick"
+            android:src="@drawable/next" />
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:paddingBottom="10dp">
+        <ImageButton
+            android:id="@+id/btnExport"
+            style="@style/btnWidgetStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_selector_widget"
+            android:contentDescription="CSV"
+            android:onClick="ExportCSV"
+            android:src="@drawable/export" 
+            />
+        
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>
