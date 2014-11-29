@@ -4,11 +4,12 @@
     <string name="installedMsg">App installed successfully! \n\nCopy the widget to home screen!</string>
     <string name="app_name">HoWork</string>
     <string name="updatingUI">Updating widget UI...</string>
+    <string name="WidgetAddFail">Clock not allowed (%s) or maximum reached, not saving...</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_activity_edit">Edit Day</string>
     <string name="title_activity_summary">SummaryActivity</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="dialogExportingCSV">Generating CSV file</string>
+    <string name="exporting_csv">Generating CSV file</string>
     <string name="mailExportCSVSubject">Exported CSV from HoWork</string>
     <string name="lunchBreak">Lunch break</string>
     <string name="lunchBreakDialogTitle">Set lunch break duration (hh:mm)</string>

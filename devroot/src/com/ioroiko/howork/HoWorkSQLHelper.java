@@ -88,6 +88,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 		}
 		
 		cursor.close();
+		db.close();
 		return id_Day;
 
 	}
@@ -119,6 +120,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			Log.d(method, "Stamp found with _ID = " + stampID);
 		}
 		cursor.close();
+		db.close();
 		return stampID;
 	}
 
@@ -144,6 +146,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 		values.put(DAYS.CN_DAY, String.valueOf(day));
 		long id_Created = db.insert(DAYS.TABLE_NAME, null, values);
 		id_day = (int) id_Created;
+		db.close();
 		return id_day;
 
 	}
@@ -180,7 +183,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 		long id_Added = db.insert(STAMPS.TABLE_NAME, null, values);
 		Log.d("HoWorkSqlHelper", "[InsertStamp] ...saved!");
 		id_Stamp  = (int) id_Added;
-		
+		db.close();
 		return id_Stamp;
 	}
 
@@ -215,6 +218,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 				} while (loop);
 			}
 			cur.close();
+			db.close();
 		}
 
 		return stamps;
@@ -241,6 +245,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			String whereClause = String.format("%s=? AND %s=? AND %s=?", STAMPS.CN_WAY, STAMPS.CN_TIME, STAMPS.CN_DAY_ID);
 			Log.d(method, String.format("Update query parameters: %s=%s - %s=%s - %s=%s",STAMPS.CN_WAY, whereArgs[0], STAMPS.CN_TIME,whereArgs[1], STAMPS.CN_DAY_ID, whereArgs[2]));
 			int rows = db.update(STAMPS.TABLE_NAME, values, whereClause, whereArgs);
+			db.close();
 			Log.d(method,String.format("Rows affected: %d", rows));
 			}
 			catch (Exception e)
@@ -296,6 +301,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			String[] whereArgs = new String[]{String.valueOf(existingIDStamp)};
 			Log.d(method, String.format("Update query parameters: %s=%s", STAMPS.CN_DAY_ID, whereArgs[0]));
 			int rows = db.delete(table, whereClause, whereArgs);
+			db.close();
 			Log.d(method,String.format("Rows affected: %d", rows));
 			}
 			catch (Exception e)
@@ -350,7 +356,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			cursor.moveToNext();
 		}
 		cursor.close();
-		
+		db.close();
 		return stamps;
 		
 	}

@@ -54,7 +54,7 @@ public class WidgetService extends IntentService {
 				WriteStamp(now.way);
 			} else {
 				String message = String
-						.format("Timbratura non ammessa (%s) o massimo raggiunto, non salvo",
+						.format(getString(R.string.WidgetAddFail),
 								now.way);
 				Log.i("WidgetService", message);
 				ToastmakeText(message, Toast.LENGTH_SHORT);
@@ -146,7 +146,7 @@ public class WidgetService extends IntentService {
 		// Da rimuovere questa riga quando il commento sopra è implementato
 		SendBroadcastIntent(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED, GlobalVars.STAMP_STORED,
 				"Update your timestamps textViews!");
-
+		db.close();
 		return result;
 
 	}
