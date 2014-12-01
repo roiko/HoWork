@@ -212,6 +212,7 @@ public class SummaryActivity extends Activity {
 			String diffTimeS="00:00";
 			long diffTime=0;
 			float tariff = 0;
+			long diffTimeMonth = 0;
 			tariff = getSharedPreferences(GlobalVars.SHARED_PREFERENCES_HOWORK, Context.MODE_PRIVATE).getFloat(GlobalVars.TARIFF, 0);
 			
 			String header = String.format("%s;IN;OUT;IN;OUT;IN;OUT;IN;OUT;%s;%s\n",getString(R.string.date),getString(R.string.totalWorkTime),getString(R.string.reward));
@@ -302,6 +303,7 @@ public class SummaryActivity extends Activity {
 					{	//Write here total of the current day (time + amount)
 						
 						diffTime = diffTime - Utils.TimeToLongAsMinutes(lunchBreak);
+						diffTimeMonth+=diffTime;
 						diffTimeS= Utils.LongToTime(diffTime);
 						Log.d("","Total working time: " + diffTimeS);
 						float amount = tariff * Utils.TimeToLongAsHours(diffTimeS);
@@ -322,7 +324,12 @@ public class SummaryActivity extends Activity {
 				}
 				// ========================
 
-				//Extra info (lunch break and tariff values)
+				//Extra info (Total working time, total amount, lunch break and tariff values)
+				osw.write("\n");
+				osw.write(String.format("%s;%s\n",getString(R.string.totalWorkTimeMonth), Utils.LongToTime(diffTimeMonth)));
+				float amountMonth=tariff *Utils.TimeToLongAsHours(Utils.LongToTime(diffTimeMonth));
+				String sAmountMonth = String.format("%.02f", amountMonth); 
+				osw.write(String.format("%s;%s\n",getString(R.string.rewardMonth), sAmountMonth));
 				osw.write("\n\n");
 				osw.write(String.format("%s; %s\n", getString(R.string.lunchBreakHHmm),lunchBreak));
 				osw.write(String.format("%s;%s\n", getString(R.string.tariffPerHour), String.valueOf(tariff)));

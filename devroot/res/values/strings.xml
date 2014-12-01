@@ -19,6 +19,8 @@
     <string name="reward">Reward</string>
     <string name="lunchBreakHHmm">Lunch break (HH:mm)</string>
     <string name="tariffPerHour">Tariff (per hour)</string>
+    <string name="totalWorkTimeMonth">Total working time of the month</string>
+    <string name="rewardMonth">Reward of the month</string>
     
     
     

@@ -20,6 +20,8 @@
     <string name="reward">Compenso</string>
     <string name="lunchBreakHHmm">Pausa pranzo (HH:mm)</string>
     <string name="tariffPerHour">Tariffa (all\'ora)</string>
+    <string name="totalWorkTimeMonth">Tempo di lavoro totale mensile</string>
+    <string name="rewardMonth">Compenso mensile</string>
 
     <!-- DialogEdit -->
     <string name="dialogTitle">Modifica timbratura</string>
