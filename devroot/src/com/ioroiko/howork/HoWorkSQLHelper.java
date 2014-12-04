@@ -101,15 +101,16 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 	public int StampExist(Stamp stamp)
 	{
 		/* select stamps.[_id] from days join stamps on days.[_id]=[STAMPS].[day_id]
-		where day = [GIORNO] AND month = [MESE] and year = [ANNO] and way=[WAY] and time = [GETTIME]*/
+		where day = [GIORNO] AND month = [MESE] and year = [ANNO] and way=[WAY] and time = [GETTIME] and _ID=[id_stamp]*/
 		String method = "StampExist";
 		int stampID = -1;
 		SQLiteDatabase db = this.getReadableDatabase();
-
+		
 		String select = String.format("SELECT %s.%s", STAMPS.TABLE_NAME, STAMPS._ID);
 		String from = String.format(" FROM %s JOIN %s ON %s.%s=%s.%s", STAMPS.TABLE_NAME, DAYS.TABLE_NAME, STAMPS.TABLE_NAME,STAMPS.CN_DAY_ID,DAYS.TABLE_NAME,DAYS._ID);
-		String where = String.format(" WHERE %s=? AND %s=? AND %s=? AND %s=? AND %s=?", DAYS.CN_DAY, DAYS.CN_MONTH, DAYS.CN_YEAR, STAMPS.CN_WAY, STAMPS.CN_TIME);
-		String[] selArgs = new String[]{String.valueOf(stamp.day), String.valueOf(stamp.month), String.valueOf(stamp.year), stamp.way.toString(), stamp.getTime()};
+		String where = String.format(" WHERE %s=? AND %s=? AND %s=? AND %s=? AND %s=? AND %s=?", DAYS.CN_DAY, DAYS.CN_MONTH, DAYS.CN_YEAR, STAMPS.CN_WAY, STAMPS.CN_TIME, STAMPS.TABLE_NAME+"."+STAMPS._ID);
+		String[] selArgs = new String[]{String.valueOf(stamp.day), String.valueOf(stamp.month), String.valueOf(stamp.year), stamp.way.toString(), stamp.getTime(), String.valueOf(stamp.idStamp)};
+		
 		String rawQuery = select + from + where;
 	
 		Cursor cursor = db.rawQuery(rawQuery, selArgs);
@@ -200,7 +201,6 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 				cur.moveToFirst();
 				boolean loop = true;
 				do {
-					// TODO riempire la lista di timbrature
 					String timeString = cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_TIME)); //Time value
 					String[] timeSplit = timeString.split(":");
 					Stamp tempStamp = new Stamp(year, month, day, Integer.parseInt(timeSplit[0]), Integer.parseInt(timeSplit[1]));
@@ -208,6 +208,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 						tempStamp.way=Way.IN;
 					else if (cur.getString(cur.getColumnIndex(HoWorkContract.STAMPS.CN_WAY)).equals(HoWorkContract.STAMPS.WAY_OUT))
 						tempStamp.way=Way.OUT;
+					tempStamp.idStamp=cur.getInt(cur.getColumnIndex(STAMPS._ID));
 					stamps.add(tempStamp);
 					
 					if (cur.isLast())
@@ -236,14 +237,12 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			{
 			SQLiteDatabase db = this.getWritableDatabase();
 			ContentValues values = new ContentValues();
-			//values.put(STAMPS.CN_WAY, newStamp.way.toString());
 			values.put(STAMPS.CN_TIME, newStamp.getTime());
-			String[] whereArgs = new String[3];
-			whereArgs[0]=oldStamp.way.toString();
-			whereArgs[1]=oldStamp.getTime();
-			whereArgs[2]=String.valueOf(existingIDDay);
-			String whereClause = String.format("%s=? AND %s=? AND %s=?", STAMPS.CN_WAY, STAMPS.CN_TIME, STAMPS.CN_DAY_ID);
-			Log.d(method, String.format("Update query parameters: %s=%s - %s=%s - %s=%s",STAMPS.CN_WAY, whereArgs[0], STAMPS.CN_TIME,whereArgs[1], STAMPS.CN_DAY_ID, whereArgs[2]));
+			String[] whereArgs = new String[1];
+
+			whereArgs[0]=String.valueOf(oldStamp.idStamp);
+			String whereClause = String.format("%s=?",STAMPS._ID);
+			Log.d(method, String.format("Update query parameters: %s=%s",STAMPS._ID, whereArgs[0]));
 			int rows = db.update(STAMPS.TABLE_NAME, values, whereClause, whereArgs);
 			db.close();
 			Log.d(method,String.format("Rows affected: %d", rows));
@@ -299,7 +298,7 @@ public class HoWorkSQLHelper extends SQLiteOpenHelper {
 			String table = STAMPS.TABLE_NAME;
 			String whereClause = String.format("%s=?", STAMPS._ID);
 			String[] whereArgs = new String[]{String.valueOf(existingIDStamp)};
-			Log.d(method, String.format("Update query parameters: %s=%s", STAMPS.CN_DAY_ID, whereArgs[0]));
+			Log.d(method, String.format("Update query parameters: %s=%s", STAMPS._ID, whereArgs[0]));
 			int rows = db.delete(table, whereClause, whereArgs);
 			db.close();
 			Log.d(method,String.format("Rows affected: %d", rows));

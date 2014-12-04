@@ -81,7 +81,7 @@ public final class HoWorkContract {
         		"INSERT INTO "+TABLE_NAME+" ("+CN_DAY_ID+","+CN_WAY+","+CN_TIME+") VALUES (?,?,?);";
         
         public static final String SQL_GET_STAMPS_OF_A_DAY =
-        		"SELECT " + STAMPS.CN_TIME +","+STAMPS.CN_WAY+" FROM " + STAMPS.TABLE_NAME + 
+        		"SELECT " + STAMPS.CN_TIME +","+STAMPS.CN_WAY+","+STAMPS.TABLE_NAME+"."+STAMPS._ID+" FROM " + STAMPS.TABLE_NAME + 
         		" JOIN "+ DAYS.TABLE_NAME +
         		" ON "+STAMPS.TABLE_NAME+"."+STAMPS.CN_DAY_ID +"="+DAYS.TABLE_NAME+"."+ DAYS._ID +
         		" WHERE " + DAYS.CN_YEAR + " =? AND " + DAYS.CN_MONTH + " =? AND " + DAYS.CN_DAY + " =?"+

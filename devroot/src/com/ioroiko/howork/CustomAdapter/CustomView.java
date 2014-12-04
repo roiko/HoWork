@@ -16,10 +16,7 @@ import com.ioroiko.howork.Stamp;
 public class CustomView extends TextView{
 	
 	public Stamp stamp;
-	public TextView tvWay;
 	public TextView tvStamp;
-	public Button btnEdit;
-	public Button btnDel;
 	
 	public CustomView(Context c, AttributeSet attrs, Stamp curStamp)
 	{

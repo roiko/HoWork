@@ -62,6 +62,7 @@ public class EditStampDialog extends DialogFragment {
 						Stamp newStamp = new Stamp(diaStamp.year,
 								diaStamp.month, diaStamp.day, diaStamp.hour,
 								diaStamp.minute);
+						oldStamp.idStamp=diaStamp.idStamp;
 						newStamp.hour = tp.getCurrentHour();
 						newStamp.minute = tp.getCurrentMinute();
 						boolean result = helper.UpdateStampTime(oldStamp,
@@ -93,6 +94,7 @@ public class EditStampDialog extends DialogFragment {
 								diaStamp.month, diaStamp.day, diaStamp.hour,
 								diaStamp.minute);
 						delStamp.way = diaStamp.way;
+						delStamp.idStamp=diaStamp.idStamp;
 						boolean res = false;
 						ActivityEdit curActivity = (ActivityEdit) getActivity();
 						if (helper.CanRemoveStamp(delStamp)) {
