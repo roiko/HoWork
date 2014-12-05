@@ -8,7 +8,3 @@
     android:resizeMode="horizontal|vertical"
     android:previewImage="@drawable/widget_preview"
     android:updatePeriodMillis="43200000" /> <!-- 12 ore -->
-<!--
-Aggiungere (con un'imagine di come sarà il widget per vederlo nella lista dei widget): 
-android:previewImage="@drawable/widget_preview"
--->

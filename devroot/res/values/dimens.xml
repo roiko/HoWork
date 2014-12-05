@@ -7,9 +7,11 @@
     <color name="greyHoWork">#B4000000</color>
     <color name="lightGreyHoWork">#eaeaea</color>
     <color name="darkGreyHoWork">#353535</color>
-    <color name="blueHoWork">#1cb0e7</color>
-    <color name="greenHoWork">#367e46</color>
-    <color name="redHoWork">#b03f3f</color>
+    <color name="darkGreenHoWork">#46ab49</color>
+    <color name="greenHoWork">#25e182</color>
+    <color name="blueHoWork">#55b6f3</color>
+    <color name="orangeHoWork">#f8a836</color>
+    <color name="redHoWork">#f34040</color>
     <color name="widgetBtnColor">#8C181822</color>
     <color name="widgetBtnColor_D">#8Ce1e1e1</color>
     <color name="itemSettingsText">#b6b6b6</color>

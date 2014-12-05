@@ -14,7 +14,7 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/blueHoWork"
-        android:textStyle="bold" />
+        android:textStyle="italic" />
 
     <ListView
         android:id="@+id/listView1"

@@ -37,7 +37,7 @@
                 android:layout_margin="10dp"
                 android:text="suca"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#1cb0e7"
+                android:textColor="@color/blueHoWork"
                 android:textStyle="bold" />
         </LinearLayout>
 

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="dd/mm/yy"
         android:textColor="@color/blueHoWork"
-        android:textStyle="normal"
+        android:textStyle="italic"
         android:layout_marginLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
