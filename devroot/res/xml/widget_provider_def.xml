@@ -7,4 +7,4 @@
     android:minWidth="250dp"
     android:resizeMode="horizontal|vertical"
     android:previewImage="@drawable/widget_preview"
-    android:updatePeriodMillis="43200000" /> <!-- 12 ore -->
+    android:updatePeriodMillis="3600000" /> <!-- 1 ora -->
