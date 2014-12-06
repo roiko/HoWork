@@ -7,7 +7,7 @@
     <string name="WidgetAddFail">Clock not allowed (%s) or maximum reached, not saving...</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_activity_edit">Edit Day</string>
-    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_summary">Monthly summary</string>
     <string name="title_activity_settings">Settings</string>
     <string name="exporting_csv">Generating CSV file</string>
     <string name="mailExportCSVSubject">Exported CSV from HoWork</string>
