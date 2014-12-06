@@ -140,10 +140,7 @@ public class WidgetService extends IntentService {
 		Log.d("WidgetService", "[WriteStamp] InsertStamp(" + way.toString()
 				+ ") end!");
 
-		// Qui voglio inviare come chiave la textView da aggiornare e come
-		// valore la stringa di testo
-
-		// Da rimuovere questa riga quando il commento sopra è implementato
+		//Aggiorno il widget
 		SendBroadcastIntent(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED, GlobalVars.STAMP_STORED,
 				"Update your timestamps textViews!");
 		db.close();

@@ -39,24 +39,27 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			// TODO Auto-generated method stub
 			super.onReceive(context, intent);
 			Log.d("MyWidgetProvider", "Intent Received: " + intent.getAction());
-			if ((intent.getAction().equals(GlobalVars.BTN_STAMP_CLICK))) {// useless?
+			if ((intent.getAction().equals(GlobalVars.BTN_STAMP_CLICK)))// useless? 
+			{
 				// IN or OUT? check STAMP_WAY in Extra
-			} else if ((intent.getAction()
-					.equals(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED))
-					|| (intent.getAction().equals(GlobalVars.BTN_REFRESH_CLICK))) {
-				// Service has stored the timestamp. Then it raised the intent
+			} 
+			else if ((intent.getAction().equals(GlobalVars.SERVICE_INTENT_TIMESTAMP_UPDATED)))
+			{
+				//Service has stored the timestamp. Then it raised the intent
 				// to update all widgets IN/OUT items
+				RefreshTodayStamps(context);
+			}
+			else if (intent.getAction().equals(GlobalVars.BTN_REFRESH_CLICK))
+			 {
+				// Refresh button has been clicked from widget
 				Toast.makeText(context, context.getString(R.string.updatingUI),
 						Toast.LENGTH_SHORT).show();
 				RefreshTodayStamps(context);
-				//Toast.makeText(context, "UI updated!", Toast.LENGTH_SHORT).show();
-
 			}
 
 		} catch (Exception ex) {
 			Log.e("MyWidgetProvider",
 					"[onReceive] Exception: " + ex.getMessage());
-			//Toast.makeText(context, "Eccezione: " + ex.getMessage(),Toast.LENGTH_SHORT).show();
 		}
 
 	}
